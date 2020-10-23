@@ -1,0 +1,5 @@
+BUILD : cd doodle\cheers2019 ; docker build -t saylaan/cheers2019 .
+
+RUN : docker run -it --rm saylaan/cheers2019
+
+LOG : docker login ; docker push saylaan/cheers2019

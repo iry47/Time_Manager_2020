@@ -1,0 +1,74 @@
+version: "3.7"
+
+# Default logs configuration, with rotation
+x-logging: &default_logging
+  logging:
+    driver: "json-file"
+    options:
+      max-file: "5"
+      max-size: "5m"
+
+services:
+  ## PHP
+  php:
+    image: technical_test_php
+    build:
+      context: ./
+      target: php
+      cache_from:
+        - technical_test_php
+      args:
+        CURRENT_UID: # Update UID with your host user id
+        CURRENT_GID: # Update UID with your host group id
+    depends_on:
+      - postgres
+    volumes:
+      - ./:/srv/php:rw
+    ports:
+      - 8787:8000
+    networks:
+      - default
+    <<: *default_logging
+
+  ## POSTGRESQL
+  postgres:
+    image: postgres:12.1-alpine
+    stop_grace_period: 30s
+    volumes:
+      # Keep data into an external volume
+      - postgres_volume:/var/lib/postgresql/data:rw
+    environment:
+      POSTGRES_DB_FILE: /run/secrets/POSTGRES_DB_FILE
+      POSTGRES_USER_FILE: /run/secrets/POSTGRES_USER_FILE
+      POSTGRES_PASSWORD_FILE: /run/secrets/POSTGRES_PASSWORD_FILE
+    secrets:
+      - POSTGRES_DB_FILE
+      - POSTGRES_USER_FILE
+      - POSTGRES_PASSWORD_FILE
+    ports:
+      - 5432:5432
+    networks:
+      - default
+    <<: *default_logging
+
+## Networks
+networks:
+  ## Private network
+  default:
+
+## Volumes
+volumes:
+  ## DATABASE AS EXTERNAL VOLUME
+  postgres_volume:
+    name: technical_test.${CANDIDATE}.volume.postgresql
+    external: true
+
+## Secrets value locations
+secrets:
+  ## POSTGRES
+  POSTGRES_DB_FILE:
+    file: ./.local/docker/database/secrets/DB_NAME_FILE.txt
+  POSTGRES_USER_FILE:
+    file: ./.local/docker/database/secrets/DB_USER_FILE.txt
+  POSTGRES_PASSWORD_FILE:
+    file: ./.local/docker/database/secrets/DB_PASSWORD_FILE.txt
