@@ -68,7 +68,6 @@ jobs:
           keys:
             - v1-build-cache-{{ .Branch }}
             - v1-build-cache
-      - run: ls
       - run: mix do deps.get, compile  # get updated dependencies & compile them
       - save_cache:  # generate and store mix cache
           key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
@@ -85,7 +84,7 @@ jobs:
 
       - store_test_results:  # upload junit test results for display in Test Summary
           # Read more: https://circleci.com/docs/2.0/collect-test-data/
-          path: _build/test/lib/REPLACE_WITH_YOUR_APP_NAME
+          path: _build/test/lib/time_manager
 
   build_client:
     docker:
