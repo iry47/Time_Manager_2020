@@ -33,7 +33,7 @@ jobs:
           name: abort if uncommitted files (coming from `yarn install` or `prettier`)
           command: git diff-index --quiet HEAD --
 
-  build_test_back_end:  # runs not using Workflows must have a `build` job as entry point
+  test_back_end:  # runs not using Workflows must have a `build` job as entry point
     parallelism: 1  # run only one instance of this job
     docker:  # run the steps with Docker
       - image: circleci/elixir:1.8.2-otp-22  # ...with this image as the primary container; this is where all `steps` will run
@@ -53,7 +53,7 @@ jobs:
 
     working_directory: ~/app  # directory where steps will run
 
-    test_back_end:  # commands that comprise the `build` job
+    steps:  # commands that comprise the `build` job
       - checkout  # check out source code to working directory
 
       - run: mix local.hex --force  # install Hex locally (without prompt)
