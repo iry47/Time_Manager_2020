@@ -51,7 +51,7 @@ jobs:
           POSTGRES_DB: app_test
           POSTGRES_PASSWORD:
 
-    working_directory: ~/app  # directory where steps will run
+    working_directory: ~/app/server  # directory where steps will run
 
     steps:  # commands that comprise the `build` job
       - checkout  # check out source code to working directory
