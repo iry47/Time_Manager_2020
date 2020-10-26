@@ -1,4 +1,4 @@
-FROM elixir:1.8.2-otp-22
+FROM elixir:1.8.2-otp-22-alpine
 
 RUN apk add --update git build-base python
 
