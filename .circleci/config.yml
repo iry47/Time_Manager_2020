@@ -27,8 +27,6 @@ jobs:
 
       - run: yarn eslint
 
-      - run: yarn prettier
-
       - run:
           name: abort if uncommitted files (coming from `yarn install` or `prettier`)
           command: git diff-index --quiet HEAD --
@@ -69,6 +67,7 @@ jobs:
           keys:
             - v1-build-cache-{{ .Branch }}
             - v1-build-cache
+      - run: ls
       - run: mix do deps.get, compile  # get updated dependencies & compile them
       - save_cache:  # generate and store mix cache
           key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
