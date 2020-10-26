@@ -1,4 +1,4 @@
-FROM node:lts as build
+FROM node:14.8 as build
 
 WORKDIR /home/node
 
