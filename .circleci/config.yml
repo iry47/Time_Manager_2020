@@ -1,0 +1,197 @@
+# Time-manager project CircleCI 2.0 configuration file
+version: 2
+jobs:
+  test_client:
+    docker:
+      - image: circleci/node:lts
+    working_directory: ~/time_manager/client
+    steps:
+      - checkout:
+          path: ~/time_manager
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: yarn install --frozen-lockfile
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      # run tests and coverage !
+
+      - run: yarn eslint
+
+      - run:
+          name: abort if uncommitted files (coming from `yarn install` or `prettier`)
+          command: git diff-index --quiet HEAD --
+
+  test_back_end:
+    parallelism: 1
+    docker:
+      - image: circleci/elixir:1.8.2-otp-22
+        auth:
+          username: $REGISTRY_USERNAME
+          password: $REGISTRY_PASSWORD
+        environment:
+          MIX_ENV: test
+      - image: circleci/postgres:13.0
+        auth:
+          username: $REGISTRY_USERNAME
+          password: $REGISTRY_PASSWORD
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: app_test
+          POSTGRES_PASSWORD:
+
+    working_directory: ~/time_manager/server
+
+    steps:
+      - checkout:
+          path: ~/time_manager
+
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+
+      - restore_cache:
+          keys:
+            - v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v1-mix-cache-{{ .Branch }}
+            - v1-mix-cache
+      - restore_cache:
+          keys:
+            - v1-build-cache-{{ .Branch }}
+            - v1-build-cache
+      - run: mix do deps.get, compile
+      - save_cache:
+          key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          paths: "deps"
+      - save_cache:
+          key: v1-build-cache-{{ .Branch }}
+          paths: "_build"
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run: mix test
+
+      - store_test_results:
+          path: _build/test/lib/time_manager
+
+  build_client:
+    docker:
+      - image: circleci/node:lts
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout:
+          path: ~/repo
+      - setup_remote_docker
+      - run:
+          name: Create artifacts directory
+          command: mkdir -p ~/repo/artifacts
+      - run:
+          name: Build client image
+          command: docker build -t "${REGISTRY_USERNAME}/${DOCKER_CLIENT_IMAGE_NAME}:${CIRCLE_SHA1}" ~/repo/client
+      - run:
+          name: Save image in artifacts directory
+          command: docker save "${REGISTRY_USERNAME}/${DOCKER_CLIENT_IMAGE_NAME}:${CIRCLE_SHA1}" -o ~/repo/artifacts/image_client
+      - persist_to_workspace:
+          root: artifacts
+          paths:
+            - image_client
+
+  build_back_end:
+    docker:
+      - image: circleci/node:lts
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout:
+          path: ~/repo
+      - setup_remote_docker
+      - run:
+          name: Create artifacts directory
+          command: mkdir -p ~/repo/artifacts
+      - run:
+          name: Build back-end image
+          command: docker build -t "${REGISTRY_USERNAME}/${DOCKER_BACK_END_IMAGE_NAME}:${CIRCLE_SHA1}" ~/repo/server
+      - run:
+          name: Save image in artifacts directory
+          command: docker save "${REGISTRY_USERNAME}/${DOCKER_BACK_END_IMAGE_NAME}:${CIRCLE_SHA1}" -o ~/repo/artifacts/image_back_end
+      - persist_to_workspace:
+          root: artifacts
+          paths:
+            - image_back_end
+
+  push_image_client:
+    docker:
+      - image: circleci/node:lts
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: /home/circleci/repo/artifacts
+      - run:
+          name: Connect to docker hub
+          command: docker login $REGISTRY_ENDPOINT --username $REGISTRY_USERNAME --password $REGISTRY_PASSWORD
+      - run:
+          name: Load docker image client
+          command: docker load -i artifacts/image_client
+      - run:
+          name: Push docker image client
+          command: docker push "${REGISTRY_USERNAME}/${DOCKER_CLIENT_IMAGE_NAME}:${CIRCLE_SHA1}"
+
+  push_image_back_end:
+    docker:
+      - image: circleci/node:lts
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: /home/circleci/repo/artifacts
+      - run:
+          name: Connect to docker hub
+          command: docker login $REGISTRY_ENDPOINT --username $REGISTRY_USERNAME --password $REGISTRY_PASSWORD
+      - run:
+          name: Load docker image back-end
+          command: docker load -i artifacts/image_back_end
+      - run:
+          name: Push docker image back-end
+          command: docker push "${REGISTRY_USERNAME}/${DOCKER_BACK_END_IMAGE_NAME}:${CIRCLE_SHA1}"
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test_client
+      - test_back_end
+      - build_client:
+          requires:
+            - test_client
+          filters:
+            branches:
+              only:
+                - master
+      - build_back_end:
+          requires:
+            - test_back_end
+          filters:
+            branches:
+              only:
+                - master
+      - push_image_client:
+          requires:
+            - build_client
+      - push_image_back_end:
+          requires:
+            - build_back_end
