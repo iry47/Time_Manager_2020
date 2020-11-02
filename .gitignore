@@ -16,3 +16,8 @@ dist/*
 !*/.gitkeep
 node_modules
 
+# Deployment
+
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
