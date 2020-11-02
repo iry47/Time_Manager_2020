@@ -26,6 +26,8 @@ jobs:
 
       - run: yarn eslint
 
+      - run: yarn test
+
       - run:
           name: abort if uncommitted files (coming from `yarn install` or `prettier`)
           command: git diff-index --quiet HEAD --
