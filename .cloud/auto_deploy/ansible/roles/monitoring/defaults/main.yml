@@ -1,0 +1,15 @@
+
+monitoring_user: "{{ docker_users[0] }}"
+monitoring_group: "{{ monitoring_user }}"
+monitoring_directory: "/home/{{ monitoring_user }}"
+
+monitoring_client_docker_image: grafana/grafana
+monitoring_client_docker_tag: 7.3.1
+
+monitoring_database_docker_image: influxdb
+monitoring_database_docker_tag: 1.7.10
+
+monitoring_client_user: "admin"
+monitoring_client_password: "admin"
+
+monitoring_client_port: 80
