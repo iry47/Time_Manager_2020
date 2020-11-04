@@ -60,7 +60,7 @@ resource "aws_elb" "server_elb" {
   health_check {
     healthy_threshold   = 2
     interval            = 30
-    target              = "HTTP:3000/"
+    target              = "HTTP:4000/"
     timeout             = 3
     unhealthy_threshold = 2
   }

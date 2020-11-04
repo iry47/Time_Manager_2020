@@ -1,0 +1,20 @@
+docker_users:
+  - ubuntu
+
+docker_username: amauryfaveriel
+
+back_end_docker_image_name: time-manager-server
+back_end_docker_image_tag: 0.18
+
+client_docker_image_name: time-manager-client
+client_docker_image_tag: b54fd392df9e7ac93ec7871a99dc8c72d7bb06db
+
+database_name: time_manager_db
+
+database_uri:
+database_port: 5432
+
+monitoring_database_name: time_manager_monitoring_db
+
+monitoring_database_uri:
+monitoring_database_port: 8086

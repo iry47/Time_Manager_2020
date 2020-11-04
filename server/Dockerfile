@@ -7,21 +7,18 @@ WORKDIR /app
 
 RUN mix do local.hex --force, local.rebar --force
 
-ENV MIX_ENV=dev
-
-ARG KEY_BASE
-ARG DB_HOST
-ENV SECRET_KEY_BASE=$KEY_BASE
-ENV DATABASE_HOST=$DB_HOST
+ENV MIX_ENV=prod
 
 COPY mix.exs .
 COPY mix.lock .
-COPY config config
+
 RUN mix deps.get 
 RUN mix deps.compile
 
 COPY priv priv
 COPY lib lib
-RUN mix compile
+COPY priv priv
+
+COPY config config
 
 CMD ["mix", "phx.server"]

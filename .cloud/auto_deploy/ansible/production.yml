@@ -1,0 +1,28 @@
+---
+
+- name: Install common and docker on all servers
+  hosts: tag_project_time_manager:&tag_stage_production
+  become: yes
+  roles:
+    - { role: common, tags: ["installation"] }
+    - { role: geerlingguy.docker, tags: ["installation"] }
+
+- name: Install monitoring
+  hosts: tag_project_time_manager:&tag_stage_production:&tag_component_monitoring
+  roles:
+    - { role: monitoring, tags: ["installation"]}
+
+- name: Install client
+  hosts: tag_project_time_manager:&tag_stage_production:&tag_component_client
+  roles:
+    - { role: client, tags: ["deployment", "client"] }
+
+- name: Install database
+  hosts: tag_project_time_manager:&tag_stage_production:&tag_component_database
+  roles:
+    - { role: database, tags: ["deployment", "database"] }
+
+- name: Install back-end
+  hosts: tag_project_time_manager:&tag_stage_production:&tag_component_server
+  roles:
+    - { role: back-end, tags: ["deployment", "back_end"] }
