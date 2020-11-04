@@ -23,6 +23,6 @@
     - { role: database, tags: ["deployment", "database"] }
 
 - name: Install back-end
-  hosts: tag_project_time_manager:&tag_stage_production:&tag_component_back_end
+  hosts: tag_project_time_manager:&tag_stage_production:&tag_component_server
   roles:
     - { role: back-end, tags: ["deployment", "back_end"] }
