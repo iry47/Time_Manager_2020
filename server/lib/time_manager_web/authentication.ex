@@ -15,7 +15,7 @@ defmodule TimeManager.Authentication do
 
     TimeManager.Repo.one(query)
     |> check_password(params["active_hash"])
-    |> Authentication.generate
+
   end
 
   defp check_password(nil, _), do: {:error, "Incorrect email or password"}
