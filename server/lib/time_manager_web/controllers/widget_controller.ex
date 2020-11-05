@@ -11,7 +11,7 @@ defmodule TimeManagerWeb.WidgetController do
     render(conn, "index.json", widgets: widgets)
   end
 
-  def create(conn, %{"widget" => widget_params}) do
+  def create(conn, widget_params) do
     with {:ok, %Widget{} = widget} <- Accounts.create_widget(widget_params) do
       conn
       |> put_status(:created)
@@ -25,8 +25,8 @@ defmodule TimeManagerWeb.WidgetController do
     render(conn, "show.json", widget: widget)
   end
 
-  def update(conn, %{"id" => id, "widget" => widget_params}) do
-    widget = Accounts.get_widget!(id)
+  def update(conn, widget_params) do
+    widget = Accounts.get_widget!(widget_params["id"])
 
     with {:ok, %Widget{} = widget} <- Accounts.update_widget(widget, widget_params) do
       render(conn, "show.json", widget: widget)

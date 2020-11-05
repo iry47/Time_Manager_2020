@@ -11,7 +11,7 @@ defmodule TimeManagerWeb.TeamController do
     render(conn, "index.json", teams: teams)
   end
 
-  def create(conn, %{"team" => team_params}) do
+  def create(conn, team_params) do
     with {:ok, %Team{} = team} <- Accounts.create_team(team_params) do
       conn
       |> put_status(:created)
@@ -25,8 +25,8 @@ defmodule TimeManagerWeb.TeamController do
     render(conn, "show.json", team: team)
   end
 
-  def update(conn, %{"id" => id, "team" => team_params}) do
-    team = Accounts.get_team!(id)
+  def update(conn, team_params) do
+    team = Accounts.get_team!(team_params["id"])
 
     with {:ok, %Team{} = team} <- Accounts.update_team(team, team_params) do
       render(conn, "show.json", team: team)
