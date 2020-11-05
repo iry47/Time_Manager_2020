@@ -7,17 +7,15 @@
 # General application configuration
 use Mix.Config
 
-config :time_manager_app,
-  namespace: TimeManager,
+config :time_manager,
   ecto_repos: [TimeManager.Repo]
 
 # Configures the endpoint
-config :time_manager_app, TimeManagerWeb.Endpoint,
+config :time_manager, TimeManagerWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "h3l3joyPD+8LFjhcAELGXxMwLi7bh9FCEpFvX76pCzrKVZhgqCplW7779YcWPb3P",
-  render_errors: [view: TimeManagerWeb.ErrorView, accepts: ~w(json), layout: false],
-  pubsub_server: TimeManager.PubSub,
-  live_view: [signing_salt: "bByDDU3h"]
+  secret_key_base: "BkpqXMFvQVOxL8eCjvcvqMU8KtaH+j+Rw3C4HE2WS4TSwoZnFrBuk0mhqbYkZ6N5",
+  render_errors: [view: TimeManagerWeb.ErrorView, accepts: ~w(json)],
+  pubsub: [name: TimeManager.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -26,6 +24,10 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+config :bcrypt_elixir, log_rounds: 4
+
+
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
