@@ -57,7 +57,7 @@ import GridsterItem from "@/components/Vuegridster/vue-gridster-item.vue";
 import GraphOne from '@/components/Dashboard/Employee/Widgets/GraphOne';
 import GraphTwo from '@/components/Dashboard/Employee/Widgets/GrapheTwo';
 import WidgetBadge from '@/components/Dashboard/Employee/Widgets/WidgetBadge';
-import WidgetWorkingHour from '@/components/Dashboard/Employee/Widgets/WidgetWorkingHour';
+import WidgetWorkinghour from '@/components/Dashboard/Employee/Widgets/WidgetWorkinghour';
 
 export default {
   computed: {
@@ -65,7 +65,11 @@ export default {
   },
   components: {
     Gridster,
-    GridsterItem
+    GridsterItem,
+    GraphOne,
+    GraphTwo,
+    WidgetBadge,
+    WidgetWorkinghour
   },
   data() {
     return {
