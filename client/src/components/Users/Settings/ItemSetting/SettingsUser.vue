@@ -8,8 +8,8 @@
       outline
       clearable
       v-if="admin"
-      label="username"
-      v-model="adminview.username"
+      label="email"
+      v-model="adminview.email"
       :rules="[required]"
     >
       <template v-slot:prepend>
@@ -17,12 +17,12 @@
           <template v-slot:activator="{ on }">
             <v-icon v-on="on">help</v-icon>
           </template>
-          Your username must be valid
+          Your email must be valid
         </v-tooltip>
       </template>
       <template v-slot:append>
         <v-fade-transition leave-absolute>
-          <v-icon>username</v-icon>
+          <v-icon>email</v-icon>
         </v-fade-transition>
       </template>
     </v-text-field> -->
@@ -98,12 +98,12 @@ export default {
   data() {
     return {
       userview: {
-        active_hash: null,
+        hash: null,
         salt: null,
         password: null
       },
       adminview: {
-        active_hash: null,
+        hash: null,
         salt: null,
         password: null
       },
@@ -115,7 +115,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "user", "admin"])
+    ...mapState(["isUserLoggedIn", "user", "admin", "manager"])
   },
   methods: {
     async saveSettings() {
@@ -123,7 +123,7 @@ export default {
       if (this.admin) {
         const areAllFieldsFilledIn = Object.keys(this.adminview).every(
           key => {
-            if (key === 'active_hash' || key === 'salt' || key === 'password') {
+            if (key === 'hash' || key === 'salt' || key === 'password') {
               return (true)
             }
             return (!!this.adminview[key])
@@ -141,10 +141,10 @@ export default {
         }
         try {
           const hash = crypto.pbkdf2Sync(this.oldPassword, this.user.salt, 1000, 64, `sha512`).toString(`hex`)
-          const isPasswordValid = this.user.active_hash === hash
+          const isPasswordValid = this.user.hash === hash
           if (isPasswordValid) {
             this.adminview.salt = crypto.randomBytes(16).toString(`hex`)
-            this.adminview.active_hash = crypto.pbkdf2Sync(this.newPassword, this.adminview.salt,
+            this.adminview.hash = crypto.pbkdf2Sync(this.newPassword, this.adminview.salt,
               1000, 64, `sha512`).toString(`hex`)
             await UserService.put(this.adminview);
             this.$router.push({ name: "users" });
@@ -157,7 +157,7 @@ export default {
       } else {
         const areAllFieldsFilledIn = Object.keys(this.userview).every(
           key => {
-            if (key === 'active_hash' || key === 'salt' || key === 'admin' || key === 'username' || key === 'password') {
+            if (key === 'hash' || key === 'salt' || key === 'admin' || key === 'email' || key === 'password') {
               return (true)
             }
             return (!!this.userview[key])
@@ -175,10 +175,10 @@ export default {
         }
         try {
           const hash = crypto.pbkdf2Sync(this.oldPassword, this.user.salt, 1000, 64, `sha512`).toString(`hex`)
-          const isPasswordValid = this.user.active_hash === hash
+          const isPasswordValid = this.user.hash === hash
           if (isPasswordValid) {
             this.userview.salt = crypto.randomBytes(16).toString(`hex`)
-            this.userview.active_hash = crypto.pbkdf2Sync(this.newPassword, this.userview.salt,
+            this.userview.hash = crypto.pbkdf2Sync(this.newPassword, this.userview.salt,
               1000, 64, `sha512`).toString(`hex`)
             await UserService.put(this.userview);
             this.$router.push({ name: "dashboard" });

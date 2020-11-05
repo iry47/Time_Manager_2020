@@ -21,13 +21,13 @@ export default new Router({
     hash: false,
     mode: 'history',
     routes: [{
+            path: '*',
+            redirect: '/'
+        },
+        {
             path: '/',
             name: 'home',
             component: Home
-        },
-        {
-            path: '*',
-            redirect: '/'
         },
         {
             path: '/register',
@@ -40,25 +40,35 @@ export default new Router({
             component: SignIn
         },
         {
-            path: '/dashboard',
-            name: 'dashboard',
-            component: Dashboard
-        },
-        {
             path: '/settings',
             name: 'settings',
             component: Settings
         },
         {
+            path: '/dashboard',
+            name: 'dashboard',
+            component: Dashboard
+        },
+        {
+            path: '/teams',
+            name: 'teams',
+            component: Teams
+        },
+        {
+            path: '/teams/:teamId',
+            name: 'team',
+            component: Team
+        },
+        // {
+        //     path: '/teams/create',
+        //     name: 'team-create',
+        //     component: CreateTeam
+        // },
+        {
             path: '/users',
             name: 'users',
             component: Users
         },
-        // {
-        //   path: '/users/:userId',
-        //   name: 'user',
-        //   component: ViewUser
-        // },
         {
             path: '/users/create',
             name: 'user-create',
@@ -68,6 +78,11 @@ export default new Router({
             path: '/users/:userId/edit',
             name: 'edit-user',
             component: EditUser
+        },
+        {
+            path: '/users/:userId',
+            name: 'user',
+            component: ViewUser
         }
     ]
 })

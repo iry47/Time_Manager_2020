@@ -5,12 +5,12 @@
         <v-flex xs6>
           <settings-meteo />
         </v-flex>
-        <v-flex xs6 class="mt-2">
+        <!-- <v-flex xs6 class="mt-2">
           <settings-amadeus />
-        </v-flex>
+        </v-flex> -->
       </v-layout>
     </v-flex>
-    <v-flex v-if="!admin" xs6>
+    <!-- <v-flex v-if="!admin" xs6>
       <v-layout column class="mt-2 ml-2">
         <v-flex xs6>
           <settings-google />
@@ -19,7 +19,7 @@
           <settings-imgur />
         </v-flex>
       </v-layout>
-    </v-flex>
+    </v-flex> -->
     <v-layout class="mt-5" justify-center wrap v-if="isUserLoggedIn">
       <v-flex fill-height xs12 sm8 md6 v-if="isUserLoggedIn">
         <settings-user />
@@ -30,7 +30,7 @@
 
 <script>
 import { mapState } from "vuex";
-import SettingsMeteo from "./ItemSetting/SettingsMeteo";
+// import SettingsMeteo from "./ItemSetting/SettingsMeteo";
 import SettingsUser from "./ItemSetting/SettingsUser";
 
 export default {
@@ -40,12 +40,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "user", "admin"])
+    ...mapState(["isUserLoggedIn", "user", "admin", "manager"])
   },
   async mounted() {},
   components: {
-    SettingsUser,
-    SettingsMeteo
+    SettingsUser
+    // SettingsMeteo
   },
   props: {
     main: {

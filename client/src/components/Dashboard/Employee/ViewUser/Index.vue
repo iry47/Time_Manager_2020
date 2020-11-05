@@ -18,7 +18,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "user", "route", "admin"])
+    ...mapState(["isUserLoggedIn", "user", "route", "admin", "manager"])
   },
   async mounted() {
     const userId = this.route.params.userId;

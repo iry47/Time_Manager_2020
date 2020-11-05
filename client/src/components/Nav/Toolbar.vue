@@ -7,24 +7,34 @@
       v-if="!isUserLoggedIn"
       src="../../assets/Logo.png"
       aspect-ratio="0.9"
-      @click="mainNav({name: 'home'})"
-    >
+      @click="navTo({name: 'home'}, 'none')"
+    />
     <img
       v-if="isUserLoggedIn && !admin"
       src="../../assets/Logo.png"
       aspect-ratio="0.9"
-      @click="mainNav({name: 'dashboard'})"
-    >
+      @click="navTo({name: 'dashboard'}, 'one')"
+    />
     <img
       v-if="isUserLoggedIn && admin"
       src="../../assets/Logo.png"
       aspect-ratio="0.9"
-      @click="mainNav({name: 'users'})"
-    >
+      @click="navTo({name: 'users'}, 'two')"
+    />
+    <!-- <img
+      v-if="isUserLoggedIn && manager"
+      src="../../assets/Logo.png"
+      aspect-ratio="0.9"
+      @click="navTo({name: 'team'}, 'two')"
+    /> -->
     <v-spacer></v-spacer>
     <v-btn v-if="!admin && isUserLoggedIn" :href="'mailto:geoffroy.huck@epitech.eu?subject=SUPPORT'" icon small x-large>
       <v-icon>email</v-icon>
     </v-btn>
+      <v-btn text v-if="isUserLoggedIn" @click="navTo({name: 'settings'}, 'three')" class="hidden-sm-and-down body-1s font-weight-bold">
+        <!-- {{this.user.firstname}} {{this.user.lastname}}  ADD WHEN CHANGE -->
+        {{ this.user.username }} 
+      </v-btn>
     <v-toolbar-items>
     <v-btn v-if="!isUserLoggedIn" text :to="{name: 'signin'}" class="body-2 font-weight-bold">Sign in</v-btn>
     <v-btn v-if="!isUserLoggedIn" small :to="{name: 'register'}" class="body-2 font-weight-bold">Register</v-btn>
@@ -35,7 +45,6 @@
 
 <script>
 import { mapState } from "vuex";
-import UserService from "@/services/ApiAxios/User/UserService"
 
 export default {
   data() {
@@ -49,24 +58,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["user", "isUserLoggedIn", "dark", "admin", "active"])
-  },
-  watch: {
-    async getUserView() {
-      try {
-        this.userview = (await UserService.getUser(this.user.id)).data;
-        console.log('watch userview', this.userview)
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  },
-  async mounted() {
-    try {
-      this.userview = (await UserService.getUser(this.user.id)).data;
-    } catch (err) {
-      console.log(err);
-    }
+    ...mapState(["user", "isUserLoggedIn", "dark", "admin", "manager", "active"])
   },
   methods: {
     async logout() {
@@ -78,12 +70,13 @@ export default {
         name: "home"
       });
     },
-    async mainNav(route) {
-      this.$router.push(route);
-    },
-    async navToSetting(route) {
-      this.$store.dispatch('setActive', 'four')
-      this.$router.push(route);
+    async navTo(route, active) {
+      if (active === "none") {
+        this.$router.push(route);
+      } else {
+        this.$store.dispatch('setActive', active)
+        this.$router.push(route);
+      }
     }
   }
 };

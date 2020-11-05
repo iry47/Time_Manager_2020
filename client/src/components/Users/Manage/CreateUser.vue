@@ -2,14 +2,14 @@
   <v-layout class="mt-5" v-if="isUserLoggedIn && admin" v-on:keyup.enter="create({name: 'users'})" justify-center>
     <v-flex xs6>
       <panel title="Create User">
-          <v-text-field label="Username" type="name" v-model="userview.username"
+          <v-text-field label="Email" type="name" v-model="userview.email"
           outline clearable>
             <template v-slot:prepend>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-icon v-on="on">help</v-icon>
                 </template>
-                Your username must be valid
+                Your email must be valid
               </v-tooltip>
             </template>
             <template v-slot:append>
@@ -19,14 +19,14 @@
             </template>
           </v-text-field>
         <br>
-          <v-text-field label="Confirm username" type="name" v-model="confirmUsername"
+          <v-text-field label="Confirm email" type="name" v-model="confirmEmail"
           outline clearable>
             <template v-slot:prepend>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-icon v-on="on">help</v-icon>
                 </template>
-                Your username must be the same
+                Your email must be the same
               </v-tooltip>
             </template>
             <template v-slot:append>
@@ -77,9 +77,9 @@ export default {
   data() {
     return {
       max: 50,
-      confirmUsername: null,
+      confirmEmail: null,
       userview: {
-        username: null,
+        email: null,
         password: "ChangeMe123"
       },
       error: null,
@@ -87,7 +87,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "user", "admin"])
+    ...mapState(["isUserLoggedIn", "user", "admin", "manager"])
   },
   methods: {
     isAdmin() {
@@ -103,12 +103,12 @@ export default {
           return (!!this.userview[key])
         }
       );
-      if (!areAllFieldsFilledIn || !this.confirmUsername) {
+      if (!areAllFieldsFilledIn || !this.confirmEmail) {
         this.error = "Please fill in all the required fields.";
         return;
       }
-      if (this.confirmUsername !== this.userview.username) {
-        this.error = "The usernames don't match"
+      if (this.confirmEmail !== this.userview.email) {
+        this.error = "The emails don't match"
         return;
       }
       try {

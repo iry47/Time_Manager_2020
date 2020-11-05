@@ -58,15 +58,7 @@ import Widget from "@/services/ApiAxios/Widget/Widget";
 
 export default {
   computed: {
-    ...mapState([
-      "isUserLoggedIn",
-      "user",
-      "servicesUser",
-      "servicesActive",
-      "admin",
-      "dark",
-      "grad"
-    ])
+    ...mapState(["isUserLoggedIn", "user", "servicesUser", "servicesActive", "admin", "manager", "dark", "grad"])
   },
   components: {
     Gridster,
@@ -102,10 +94,10 @@ export default {
   watch: {
     active: async function() {
       if (this.active) {
-        this.userview.modify_gridster = true;
+        this.userview.gridster = true;
         await User.put(this.userview);
       } else {
-        this.userview.modify_gridster = false;
+        this.userview.gridster = false;
         await User.put(this.userview);
         this.options.draggable.enabled = false;
         this.options.resizable.enabled = false;
@@ -123,7 +115,7 @@ export default {
     this.options.floating = false;
     this.options.swapping = false;
     this.userview = (await User.getUser(this.user.id)).data;
-    if (this.userview.modify_gridster) {
+    if (this.userview.gridster) {
       this.active = true;
     }
     this.services = (await Service.index()).data;

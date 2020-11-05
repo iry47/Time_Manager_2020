@@ -124,13 +124,7 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      "servicesUser",
-      "servicesActive",
-      "isUserLoggedIn",
-      "user",
-      "admin"
-    ])
+    ...mapState(["servicesUser", "servicesActive", "isUserLoggedIn", "user", "admin", "manager"])
   },
   methods: {
     async saveSettings() {
@@ -188,8 +182,8 @@ export default {
       return "";
     },
     checkCookie(name) {
-      const username = this.getCookie(name);
-      if (username !== "") {
+      const email = this.getCookie(name);
+      if (email !== "") {
         return true;
       } else {
         return false;

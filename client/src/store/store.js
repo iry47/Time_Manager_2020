@@ -14,13 +14,13 @@ export default new Vuex.Store({ // for keeping tracking of state
         user: null,
         isUserLoggedIn: false,
         admin: false,
+        manager: false,
         dark: false,
         grad: 'to top right, #5D29A9, #CBC8D0',
         active: {
             one: null,
             two: null,
-            three: null,
-            four: null
+            three: null
         }
         // servicesUser: {
         //     townOpenWeather: null
@@ -41,22 +41,14 @@ export default new Vuex.Store({ // for keeping tracking of state
                 state.active.one = 'primary'
                 state.active.two = null
                 state.active.three = null
-                state.active.four = null
             } else if (active === 'two') {
                 state.active.one = null
                 state.active.two = 'primary'
                 state.active.three = null
-                state.active.four = null
             } else if (active === 'three') {
                 state.active.one = null
                 state.active.two = null
                 state.active.three = 'primary'
-                state.active.four = null
-            } else if (active === 'four') {
-                state.active.one = null
-                state.active.two = null
-                state.active.three = null
-                state.active.four = 'primary'
             }
         },
         setGrad(state, grad) {
@@ -75,6 +67,9 @@ export default new Vuex.Store({ // for keeping tracking of state
         },
         setAdmin(state, admin) {
             state.admin = admin
+        },
+        setManager(state, manager) {
+            state.manager = manager
         },
         setDark(state, dark) {
             state.dark = dark
@@ -101,6 +96,9 @@ export default new Vuex.Store({ // for keeping tracking of state
         },
         setAdmin({ commit }, admin) {
             commit('setAdmin', admin)
+        },
+        setManager({ commit }, manager) {
+            commit('setManager', manager)
         },
         setDark({ commit }, dark) {
             commit('setDark', dark)

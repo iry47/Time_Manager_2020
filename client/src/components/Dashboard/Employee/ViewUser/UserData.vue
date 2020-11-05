@@ -36,7 +36,7 @@ import { mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["isUserLoggedIn", "user", "admin"])
+    ...mapState(["isUserLoggedIn", "user", "admin", "manager"])
   },
   props: ['userview']
 };
