@@ -24,7 +24,7 @@ module.exports = {
     },
     delay(time, callback) {
         setInterval(callback, time * 1000);
-    }
+    },
     // Swal.fire({
     //     position: "top-end",
     //     type: "success",
@@ -33,4 +33,19 @@ module.exports = {
     //     showConfirmButton: false,
     //     timer: 2000
     // });
+    formatted_date() {
+        var result = "";
+        var d = new Date();
+        result +=
+            d.getDate() +
+            "/" +
+            (d.getMonth() + 1) +
+            "/" +
+            d.getFullYear() +
+            " at " +
+            d.getHours() +
+            ":" +
+            d.getMinutes();
+        return result;
+    }
 }

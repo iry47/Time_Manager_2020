@@ -69,7 +69,7 @@ export default {
     Navbar
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "user", "admin", "grad", "dark"])
+    ...mapState(["isUserLoggedIn", "user", "admin", "manger", "grad", "dark"])
   }
 }
 </script>

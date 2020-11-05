@@ -2,36 +2,36 @@
   <v-layout v-if="isUserLoggedIn && admin" v-on:keyup.enter="save()" justify-center>
     <v-flex xs6>
       <panel class="mt-5" title="Edit user">
-          <v-text-field label="Username" type="name" v-model="userview.username"
+          <v-text-field label="Email" type="name" v-model="userview.email"
           outline clearable>
             <template v-slot:prepend>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-icon v-on="on">help</v-icon>
                 </template>
-                Your username must be valid
+                Your email must be valid
               </v-tooltip>
             </template>
             <template v-slot:append>
               <v-fade-transition leave-absolute>
-                <v-icon>username</v-icon>
+                <v-icon>email</v-icon>
               </v-fade-transition>
             </template>
           </v-text-field>
         <br>
-          <v-text-field label="Confirm username" type="name" v-model="confirmUsername"
+          <v-text-field label="Confirm email" type="name" v-model="confirmEmail"
           outline clearable>
-                      <template v-slot:prepend>
+            <template v-slot:prepend>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-icon v-on="on">help</v-icon>
                 </template>
-                Your username must be the same
+                Your email must be the same
               </v-tooltip>
             </template>
             <template v-slot:append>
               <v-fade-transition leave-absolute>
-                <v-icon>username</v-icon>
+                <v-icon>email</v-icon>
               </v-fade-transition>
             </template>
           </v-text-field>
@@ -111,19 +111,19 @@ export default {
     return {
       changePassword: false,
       confirmPassword: null,
-      confirmUsername: null,
+      confirmEmail: null,
       userview: {
-        username: null,
+        email: null,
         password: null,
         salt: null,
-        active_hash: null
+        hash: null
       },
       error: null,
       required: value => !!value || "Required."
     };
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "route", "user", "admin"])
+    ...mapState(["isUserLoggedIn", "route", "user", "admin", "manager"])
   },
   methods: {
     async displayPwd() {
@@ -138,7 +138,7 @@ export default {
       if (this.changePassword) {
         const areAllFieldsFilledIn = Object.keys(this.userview).every(
           key => {
-            if (key === 'salt' || key === 'active_hash') {
+            if (key === 'salt' || key === 'hash') {
               return (true)
             }
             return (!!this.userview[key])
@@ -147,15 +147,15 @@ export default {
       } else {
         const areAllFieldsFilledIn = Object.keys(this.userview).every(
           key => {
-            if (key === 'salt' || key === 'active_hash' || key === 'password') {
+            if (key === 'salt' || key === 'hash' || key === 'password') {
               return (true)
             }
             return (!!this.userview[key])
           }
         );
       }
-      if (this.confirmUsername !== this.userview.username) {
-        this.error = "The usernames don't match"
+      if (this.confirmEmail !== this.userview.email) {
+        this.error = "The emails don't match"
         return;
       }
       if (this.changePassword) {
@@ -164,7 +164,7 @@ export default {
           return;
         }
         this.userview.salt = crypto.randomBytes(16).toString(`hex`)
-        this.userview.active_hash = crypto.pbkdf2Sync(this.userview.password, this.userview.salt, 1000, 64, `sha512`).toString(`hex`)
+        this.userview.hash = crypto.pbkdf2Sync(this.userview.password, this.userview.salt, 1000, 64, `sha512`).toString(`hex`)
         this.userview.password = ""
       }
       const userId = this.route.params.userId;
@@ -182,7 +182,7 @@ export default {
       const userId = this.route.params.userId;
       this.userview = (await UserService.getUser(userId)).data;
       this.confirmPassword = this.userview.password
-      this.confirmUsername = this.userview.username
+      this.confirmEmail = this.userview.email
     },
     async cancel() {
       this.$router.push({name: 'users'})
@@ -193,7 +193,7 @@ export default {
       const userId = this.route.params.userId;
       this.userview = (await UserService.getUser(userId)).data;
       this.confirmPassword = this.userview.password
-      this.confirmUsername = this.userview.username
+      this.confirmEmail = this.userview.email
     } catch (err) {
       console.log(err);
     }

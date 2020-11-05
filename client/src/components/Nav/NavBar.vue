@@ -12,7 +12,7 @@
       :dark="dark"
   >
     <v-list>
-      <v-list-item v-if="isUserLoggedIn && !admin" class="mt-3" title="test" @click="navToDashboard({name: 'dashboard'})"
+      <v-list-item v-if="isUserLoggedIn && !admin" class="mt-3" title="test" @click="navTo({name: 'dashboard'}, 'one')"
       :class="active.one">
         <v-list-item-action>
           <v-icon>dashboard</v-icon>
@@ -21,7 +21,16 @@
           <v-list-item-title>Dashboard</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item class="mt-2" v-if="admin" @click="navToUser({name: 'users'})"
+      <v-list-item class="mt-2" v-if="isUserLoggedIn && manager" @click="navTo({name: 'users'}, 'two')"
+      :class="active.two">
+        <v-list-item-action>
+          <v-icon>people</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>Teams</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item class="mt-2" v-if="isUserLoggedIn && admin" @click="navTo({name: 'users'}, 'two')"
       :class="active.two">
         <v-list-item-action>
           <v-icon>people</v-icon>
@@ -30,7 +39,7 @@
           <v-list-item-title>Users</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item class="mt-2" @click="navToSetting({name: 'settings'})"
+      <v-list-item class="mt-2" v-if="isUserLoggedIn" @click="navTo({name: 'settings'}, 'three')"
       :class="active.three">
         <v-list-item-action>
           <v-icon>settings</v-icon>
@@ -40,8 +49,8 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
-    <template v-slot:append>
-      <v-list-item v-if="!admin" class="accent mt-5" @click="goToUrl('https://katsarosia.gitbook.io/epi-dashboard/')">
+    <!-- <template v-slot:append>
+      <v-list-item v-if="!admin" class="accent mt-5" @click="goToUrl('https://katsarosia.gitbook.io/')">
         <v-list-item-action>
           <v-icon x-large>help</v-icon>
         </v-list-item-action>
@@ -49,9 +58,7 @@
           <v-list-item-title>Help</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-    </template>
-    <template v-slot:append>
-      <v-list-item v-if="admin" class="accent mt-5" @click="goToUrl('https://documenter.getpostman.com/view/3997320/SzfB16sH')">
+      <v-list-item v-if="admin" class="accent mt-5" @click="goToUrl('https://documenter.getpostman.com/')">
         <v-list-item-action>
           <v-icon x-large>help</v-icon>
         </v-list-item-action>
@@ -59,7 +66,7 @@
           <v-list-item-title>Help</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-    </template>
+    </template> -->
   </v-navigation-drawer>
 </v-layout>
 </template>
@@ -70,7 +77,7 @@ import { mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["user", "isUserLoggedIn", "admin", "dark", "active"])
+    ...mapState(["user", "isUserLoggedIn", "admin", "manager", "dark", "active"])
   },
   props: {
     drawer: {
@@ -82,22 +89,18 @@ export default {
     async goToUrl(url) {
       window.open(url, '_blank')
     },
-    isMini() {
+    async isMini() {
       if (this.drawer.mini) {
         this.drawer.mini = false
       }
     },
-    navToDashboard(route) {
-      this.$store.dispatch('setActive', 'one')
-      this.$router.push(route);
-    },
-    navToUser(route) {
-      this.$store.dispatch('setActive', 'three')
-      this.$router.push(route);
-    },
-    navToSetting(route) {
-      this.$store.dispatch('setActive', 'four')
-      this.$router.push(route);
+    async navTo(route, active) {
+      if (active === "none") {
+        this.$router.push(route);
+      } else {
+        this.$store.dispatch('setActive', active)
+        this.$router.push(route);
+      }
     }
   }
 };
