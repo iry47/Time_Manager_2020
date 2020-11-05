@@ -14,8 +14,6 @@ import Widget from '@/components/Global/Widget'
 import VueCookies from 'vue-cookies'
 import VueGoogleApi from 'vue-google-api'
 
-// AIzaSyCXwpYimh_MVn-SytRww6NPFNPleuKlUbc
-// yEM9BuqtS3HOS5D1sGfWob9W
 const config = {
     clientId: '196579897709-rp0b1meejl9ostod8k3gdr8arb6hj8vv.apps.googleusercontent.com',
     apiKey: 'AIzaSyAN4zvVWWARexp1Z_pA7se8QNYFGHR_gzM',
