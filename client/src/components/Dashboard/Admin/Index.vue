@@ -13,9 +13,9 @@
 
 <script>
 import { mapState } from "vuex";
-import UsersClientPanel from "./ItemUser/UsersClientPanel";
-import UsersAdminPanel from "./ItemUser/UsersAdminPanel";
-import UserService from "@/services/ApiAxios/User/UserService";
+import AdminPanel from "./ItemUser/AdminPanel";
+import UserPanel from "./ItemUser/UserPanel";
+// import UserService from "@/services/ApiAxios/User/UserService";
 
 export default {
   data() {
@@ -30,8 +30,8 @@ export default {
     this.users = (await UserService.index()).data;
   },
   components: {
-    UsersClientPanel,
-    UsersAdminPanel
+    AdminPanel,
+    UserPanel
   },
   props: {
     main: {

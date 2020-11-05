@@ -12,7 +12,7 @@
       :dark="dark"
   >
     <v-list>
-      <v-list-item v-if="isUserLoggedIn && !admin" class="mt-3" title="test" @click="navTo({name: 'dashboard'}, 'one')"
+      <v-list-item v-if="isUserLoggedIn" class="mt-3" title="test" @click="navTo({name: 'dashboard'}, 'one')"
       :class="active.one">
         <v-list-item-action>
           <v-icon>dashboard</v-icon>
@@ -28,15 +28,6 @@
         </v-list-item-action>
         <v-list-item-content>
           <v-list-item-title>Teams</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item class="mt-2" v-if="isUserLoggedIn && admin" @click="navTo({name: 'users'}, 'two')"
-      :class="active.two">
-        <v-list-item-action>
-          <v-icon>people</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>Users</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item class="mt-2" v-if="isUserLoggedIn" @click="navTo({name: 'settings'}, 'three')"

@@ -12,11 +12,11 @@
 import { mapState } from "vuex";
 
 /* GRIDSTER */
-import GridWidgets from "./Gridster/GridWidgets";
+import GridWidgets from "@/components/Dashboard/Admin/UserView/DashboardUser";
 
 /* SERVICE */
-import ServiceUser from "@/services/ApiAxios/Service/ServiceUser";
-import Service from "@/services/ApiAxios/Service/Service";
+// import ServiceUser from "@/services/ApiAxios/Service/ServiceUser";
+// import Service from "@/services/ApiAxios/Service/Service";
 
 export default {
   data() {
@@ -49,15 +49,15 @@ export default {
   },
   async mounted() {
     try {
-      this.servicesUsers = (
-        await ServiceUser.getUserService(this.user.id)
-      ).data;
-      this.servicesUsers.forEach(data => {
-        if (data.ServiceId === 1) {
-          this.$store.dispatch("setServiceActiveOpenWeather", true);
-          this.$store.dispatch("setServiceUserTown", data.data);
-        } 
-      });
+      // this.servicesUsers = (
+      //   await ServiceUser.getUserService(this.user.id)
+      // ).data;
+      // this.servicesUsers.forEach(data => {
+      //   if (data.ServiceId === 1) {
+      //     this.$store.dispatch("setServiceActiveOpenWeather", true);
+      //     this.$store.dispatch("setServiceUserTown", data.data);
+      //   } 
+      // });
     } catch (err) {
       console.log(err);
     }

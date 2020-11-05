@@ -30,8 +30,8 @@
 
 <script>
 import { mapState } from "vuex";
-// import SettingsMeteo from "./ItemSetting/SettingsMeteo";
-import SettingsUser from "./ItemSetting/SettingsUser";
+// import SettingsMeteo from "@/components/Settings/SettingPanel/SettingsMeteo";
+import SettingsUser from "@/components/Settings/SettingPanel/SettingsUser";
 
 export default {
   data() {

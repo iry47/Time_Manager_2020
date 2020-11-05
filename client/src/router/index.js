@@ -1,18 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+/* HOME */
 import Home from '@/components/Main/Home'
-
+/* AUTHEN */
 import Register from '@/components/Main/Register'
 import SignIn from '@/components/Main/SignIn'
-
+/* DASHBOARD */
 import Dashboard from '@/components/Dashboard/Index'
-
+/* SETTINGS */
 import Settings from '@/components/Settings/Index'
-
-import Users from '@/components/Users/Index'
-import CreateUser from '@/components/Users/Manage/CreateUser'
-import EditUser from '@/components/Users/Manage/EditUser'
-// import ViewUser from '@/components/Users/ViewUser/Index'
+/* USER */
+import UserCreate from '@/components/Dashboard/Admin/Manage/UserCreate'
+import UserEdit from '@/components/Dashboard/Admin/Manage/UserEdit'
+import UserView from '@/components/Dashboard/Admin/UserView/Index'
+/* TEAM */
+import Teams from '@/components/Dashboard/Manager/Index'
+import TeamView from '@/components/Dashboard/Manager/Team/TeamView'
+import TeamEdit from '@/components/Dashboard/Manager/Team/Manage/TeamEdit'
+import TeamCreate from '@/components/Dashboard/Manager/Team/Manage/TeamCreate'
 
 Vue.use(Router)
 
@@ -57,32 +62,32 @@ export default new Router({
         {
             path: '/teams/:teamId',
             name: 'team',
-            component: Team
-        },
-        // {
-        //     path: '/teams/create',
-        //     name: 'team-create',
-        //     component: CreateTeam
-        // },
-        {
-            path: '/users',
-            name: 'users',
-            component: Users
+            component: TeamView
         },
         {
-            path: '/users/create',
-            name: 'user-create',
-            component: CreateUser
+            path: '/teams/create',
+            name: 'team-create',
+            component: TeamCreate
         },
         {
-            path: '/users/:userId/edit',
-            name: 'edit-user',
-            component: EditUser
+            path: '/teams/edit/:teamId',
+            name: 'team-edit',
+            component: TeamEdit
         },
         {
             path: '/users/:userId',
             name: 'user',
-            component: ViewUser
+            component: UserView
+        },
+        {
+            path: '/users/create',
+            name: 'user-create',
+            component: UserCreate
+        },
+        {
+            path: '/users/edit/:userId',
+            name: 'edit-user',
+            component: UserEdit
         }
     ]
 })

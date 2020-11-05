@@ -48,4 +48,12 @@ module.exports = {
             d.getMinutes();
         return result;
     }
+    //     <v-btn
+    //     class="grey darken-1 font-weight-bold"
+    //     :to="{
+    //         name: 'vlab',
+    //         params: {
+    //           vlabId: item.id}
+    //        }"
+    //   >View Vlab</v-btn>
 }
