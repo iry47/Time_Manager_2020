@@ -9,3 +9,102 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+alias TimeManager.Repo
+alias TimeManager.Accounts.User
+alias TimeManager.Schedule.Workingtime
+alias TimeManager.Timer.Clock
+alias TimeManager.Accounts.Widget
+alias TimeManager.Accounts.WidgetUser
+alias TimeManager.Accounts.Team
+alias TimeManager.Accounts.TeamUser
+
+Repo.insert! %User{
+    admin: false,
+    email: "manager@me.com",
+    gridster: false,
+    active_hash: "fc7e683cc0e91b472cb1df7a51b382ad",
+    manager: true,
+    lastname: "manager",
+    salt: "s0mRIdlKvI",
+    firstname: "manager"
+}
+Repo.insert! %User{
+    admin: true,
+    email: "admin@me.com",
+    gridster: false,
+    active_hash: "fc7e683cc0e91b472cb1df7a51b382ad",
+    manager: false,
+    lastname: "admin",
+    salt: "s0mRIdlKvI",
+    firstname: "admin"
+}
+Repo.insert! %User{
+    admin: false,
+    email: "employee@me.com",
+    gridster: false,
+    active_hash: "fc7e683cc0e91b472cb1df7a51b382ad",
+    manager: true,
+    lastname: "employee",
+    salt: "s0mRIdlKvI",
+    firstname: "employee"
+}
+Repo.insert! %Workingtime{
+    start: ~N[2020-10-15 10:00:00],
+    end: ~N[2020-10-15 12:00:00],
+    user: 1
+}
+Repo.insert! %Workingtime{
+    start: ~N[2020-10-16 10:00:00],
+    end: ~N[2020-10-16 14:00:00],
+    user: 1
+}
+Repo.insert! %Workingtime{
+    start: ~N[2020-10-16 10:00:00],
+    end: ~N[2020-10-16 14:00:00],
+    user: 2
+}
+Repo.insert! %Clock{
+    status: false,
+    time: ~N[2020-10-17 14:00:00],
+    user: 1
+}
+Repo.insert! %Clock{
+    status: true,
+    time: ~N[2020-10-17 14:00:00],
+    user: 2
+}
+Repo.insert! %Widget{
+    name: "widget1",
+    description: "description of a widget"
+}
+Repo.insert! %Widget{
+    name: "widget2",
+    description: "description of a widget"
+}
+Repo.insert! %WidgetUser{
+    widget: 1,
+    user: 1,
+    param_one: "param1"
+}
+Repo.insert! %WidgetUser{
+    widget: 1,
+    user: 2
+}
+Repo.insert! %Team{
+    name: "team1"
+}
+Repo.insert! %Team{
+    name: "team2"
+}
+Repo.insert! %TeamUser{
+    team: 1,
+    user: 1,
+}
+Repo.insert! %TeamUser{
+    team: 2,
+    user: 3,
+}
+Repo.insert! %TeamUser{
+    team: 1,
+    user: 2,
+}

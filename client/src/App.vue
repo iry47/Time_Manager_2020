@@ -1,12 +1,13 @@
 <template>
 <v-app id="dashboard">
+  <!-- Change Background -->
     <v-img v-if="!isUserLoggedIn" :src="require('@/assets/BackgroundHome.jpg')" v-bind:width="width" v-bind:height="height">
     <toolbar v-bind:drawer="drawer"/>
       <v-container fill-height fluid>
         <router-view v:bind:drawer="drawer"></router-view>
       </v-container>
     <v-footer :dark="dark" :inset="footer.inset" app>
-      <span class="nonePhone px-3">&copy; Copyright {{new Date().getFullYear()}} - Epitech - Huck Geoffroy - Brandner Cedric - Katsaros Ioannis  </span>
+      <span class="nonePhone px-3">&copy; Copyright {{new Date().getFullYear()}} Epitech - Huck Geoffroy - Ryan - Amauris - Victor  </span>
     </v-footer>
     </v-img>
     <v-img v-if="isUserLoggedIn" @click="isMini()" :gradiant="grad" width="100%">
@@ -18,7 +19,7 @@
       </v-container>
     </v-content>
     <v-footer app :dark="dark" :inset="footer.inset">
-      <span class="nonePhone px-3">&copy; Copyright {{new Date().getFullYear()}} Epitech - Huck Geoffroy - Brandner Cedric - Katsaros Ioannis  </span>
+      <span class="nonePhone px-3">&copy; Copyright {{new Date().getFullYear()}} Epitech - Huck Geoffroy - Ryan - Amauris - Victor  </span>
     </v-footer>
     </v-img>
   </v-app>
@@ -68,7 +69,7 @@ export default {
     Navbar
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "user", "admin", "grad", "dark"])
+    ...mapState(["isUserLoggedIn", "user", "admin", "manger", "grad", "dark"])
   }
 }
 </script>

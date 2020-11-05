@@ -1,10 +1,10 @@
 use Mix.Config
 
 # Configure your database
-config :time_manager_app, TimeManager.Repo,
+config :time_manager, TimeManager.Repo,
   username: "postgres",
   password: "postgres",
-  database: "time_manager_app_dev",
+  database: "time_manager_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -15,12 +15,20 @@ config :time_manager_app, TimeManager.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :time_manager_app, TimeManagerWeb.Endpoint,
+config :time_manager, TimeManagerWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: []
+  watchers: [
+    node: [
+      "node_modules/webpack/bin/webpack.js",
+      "--mode",
+      "development",
+      "--watch-stdin",
+      cd: Path.expand("../assets", __DIR__)
+    ]
+  ]
 
 # ## SSL Support
 #
@@ -55,3 +63,4 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
