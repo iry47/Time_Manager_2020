@@ -3,7 +3,7 @@ defmodule TimeManagerWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug CORSPlug, origin: "http://localhost:8081"
+    plug CORSPlug, origin: "*"
   end
 
   pipeline :auth do
@@ -13,6 +13,7 @@ defmodule TimeManagerWeb.Router do
   scope "/", TimeManagerWeb do
     pipe_through [:api]
 
+    resources "/", testController
     resources "/register", RegistrationController, only: [:show, :create, :new]
     resources "/signin", SessionController, only: [:show, :create]
   end

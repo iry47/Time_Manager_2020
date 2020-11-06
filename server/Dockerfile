@@ -17,7 +17,6 @@ RUN mix deps.compile
 
 COPY priv priv
 COPY lib lib
-COPY priv priv
 
 COPY config config
 
