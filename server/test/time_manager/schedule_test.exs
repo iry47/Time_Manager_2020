@@ -6,9 +6,9 @@ defmodule TimeManager.ScheduleTest do
   describe "workingtimes" do
     alias TimeManager.Schedule.Workingtime
 
-    @valid_attrs %{end: ~N[2010-04-17 14:00:00], start: ~N[2010-04-17 14:00:00]}
-    @update_attrs %{end: ~N[2011-05-18 15:01:01], start: ~N[2011-05-18 15:01:01]}
-    @invalid_attrs %{end: nil, start: nil}
+    @valid_attrs %{end: ~N[2010-04-17 14:00:00], start: ~N[2010-04-17 14:00:00], user: 1}
+    @update_attrs %{end: ~N[2011-05-18 15:01:01], start: ~N[2011-05-18 15:01:01], user: 1}
+    @invalid_attrs %{end: nil, start: nil, user: 1}
 
     def workingtime_fixture(attrs \\ %{}) do
       {:ok, workingtime} =
