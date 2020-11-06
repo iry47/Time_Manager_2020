@@ -3,17 +3,17 @@ defmodule TimeManagerWeb.Token do
 
     def token_config do
         %{}
-        |> add_claim("exp", fn -> 200 end, &(&1 == 200))
+        |> add_claim("exp", fn -> 20000000 end, &(&1 == 20000000))
     end
 
     def signer() do
-        signer = Joken.Signer.create("HS256", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")
+        signer = Joken.Signer.create("HS256", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ7")
     end
 
     def decode(conn) do
         case extract_token(conn) do
         {:ok, token} -> TimeManagerWeb.Token.verify_and_validate(token, signer) 
-        {:error, message} -> IO.puts "hello"
+        {:error, message} -> IO.puts "No token"
         end
     end
     

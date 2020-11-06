@@ -9,20 +9,24 @@
 
 - name: Install monitoring
   hosts: tag_project_time_manager:&tag_stage_production:&tag_component_monitoring
+  become: yes
   roles:
     - { role: monitoring, tags: ["installation"]}
 
 - name: Install client
   hosts: tag_project_time_manager:&tag_stage_production:&tag_component_client
+  become: yes
   roles:
     - { role: client, tags: ["deployment", "client"] }
 
 - name: Install database
   hosts: tag_project_time_manager:&tag_stage_production:&tag_component_database
+  become: yes
   roles:
     - { role: database, tags: ["deployment", "database"] }
 
 - name: Install back-end
   hosts: tag_project_time_manager:&tag_stage_production:&tag_component_server
+  become: yes
   roles:
     - { role: back-end, tags: ["deployment", "back_end"] }

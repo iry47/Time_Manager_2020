@@ -4,17 +4,17 @@ docker_users:
 docker_username: amauryfaveriel
 
 back_end_docker_image_name: time-manager-server
-back_end_docker_image_tag: 0.18
+back_end_docker_image_tag: 3.0
 
 client_docker_image_name: time-manager-client
-client_docker_image_tag: b54fd392df9e7ac93ec7871a99dc8c72d7bb06db
+client_docker_image_tag: 3.0
 
 database_name: time_manager_db
 
-database_uri:
+database_uri: ip-172-31-26-49.eu-west-2.compute.internal
 database_port: 5432
 
 monitoring_database_name: time_manager_monitoring_db
 
-monitoring_database_uri:
+monitoring_database_uri: ec2-18-133-239-20.eu-west-2.compute.amazonaws.com
 monitoring_database_port: 8086
