@@ -1,4 +1,4 @@
-> Project DEV_dashboard_2019 - EPITECH
+> Project Time_Manager_2020 - EPITECH
 
 # Guide USER
 
