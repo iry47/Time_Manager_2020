@@ -9,8 +9,8 @@ defmodule TimeManager.Repo.Migrations.CreateUsers do
       add :admin, :boolean, default: false, null: false
       add :manager, :boolean, default: false, null: false
       add :gridster, :boolean, default: false, null: false
-      add :firstname, :string
-      add :lastname, :string
+      add :firstname, :string, default: ""
+      add :lastname, :string, default: ""
 
       timestamps()
     end

@@ -4,27 +4,26 @@ defmodule TimeManagerWeb.WorkingtimeController do
   alias TimeManager.Schedule
   alias TimeManager.Schedule.Workingtime
 
-  action_fallback TimeManagerWeb.FallbackController
+  # action_fallback TimeManagerWeb.FallbackController
 
   def index(conn, _params) do
     workingtimes = Schedule.list_workingtimes()
-    IO.puts workingtimes
+
     render(conn, "index.json", workingtimes: workingtimes)
   end
 
-  def create(conn, %{"workingtime" => workingtime_params}) do
+  def create(conn, workingtime_params) do
     with {:ok, %Workingtime{} = workingtime} <- Schedule.create_workingtime(workingtime_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.workingtime_path(conn, :show, workingtime))
-      |> render("show.json", workingtimes: workingtime)
+      |> render("show.json", workingtime: workingtime)
     end
   end
 
-  def show(conn, %{"id" => user_id}) do
-    workingtimes = Schedule.get_workingtime_by_user!(String.to_integer(user_id))
-    # workingtimes = Schedule.Workingtime.changeset(%Workingtime{}, workingtimes)
-    render(conn, "index.json", workingtimes: workingtimes)
+  def show(conn, %{"id" => id}) do
+    workingtime = Schedule.get_workingtime_by_user!(String.to_integer(id))
+    render(conn, "index.json", workingtime: workingtime)
   end
 
   def show(conn, %{"userID" => user_id, "workingtimeID" => workingtime_id}) do
