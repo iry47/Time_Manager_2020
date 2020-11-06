@@ -1,7 +1,7 @@
 <template>
 <v-app id="dashboard">
   <!-- Change Background -->
-    <v-img v-if="!isUserLoggedIn" :src="require('@/assets/BackgroundHome.jpg')" v-bind:width="width" v-bind:height="height">
+    <v-img v-if="!isUserLoggedIn" :src="require('@/assets/background.png')" v-bind:width="width" v-bind:height="height">
     <toolbar v-bind:drawer="drawer"/>
       <v-container fill-height fluid>
         <router-view v:bind:drawer="drawer"></router-view>
