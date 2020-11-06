@@ -4,7 +4,7 @@ defmodule TimeManager.Repo.Migrations.CreateUsers do
   def change do
     create table(:users) do
       add :email, :string
-      add :active_hash, :string
+      add :hash, :string
       add :salt, :string
       add :admin, :boolean, default: false, null: false
       add :manager, :boolean, default: false, null: false

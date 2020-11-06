@@ -21,7 +21,7 @@ defmodule TimeManager.Authentication do
   defp check_password(nil, _), do: {:error, "Incorrect email or password"}
 
   defp check_password(user, password) do
-    case Bcrypt.Base.hash_password(password, user.salt) == user.active_hash do
+    case Bcrypt.Base.hash_password(password, user.salt) == user.hash do
       true -> {:ok, user}
       false -> {:error, "Incorrect password"}
     end

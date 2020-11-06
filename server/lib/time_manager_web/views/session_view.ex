@@ -9,7 +9,7 @@ defmodule TimeManagerWeb.SessionView do
                 firstname: user.firstname,
                 lastname: user.lastname,
                 email: user.email,
-                active_hash: user.active_hash,
+                hash: user.hash,
                 salt: user.salt,
                 admin: user.admin,
                 manager: user.manager,
@@ -23,7 +23,7 @@ defmodule TimeManagerWeb.SessionView do
 
     def render("show.json", %{user: user}) do
         %{email: user.email,
-        active_hash: user.active_hash
+        hash: user.hash
         }
     end
 

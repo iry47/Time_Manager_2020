@@ -8,7 +8,7 @@ defmodule TimeManagerWeb.UserControllerTest do
     admin: true,
     email: "email@me.com",
     gridster: true,
-    active_hash: "some hash",
+    hash: "some hash",
     manager: true,
     lastname: "some lastname",
     salt: "some salt",
@@ -18,13 +18,13 @@ defmodule TimeManagerWeb.UserControllerTest do
     admin: false,
     email: "email@me.com",
     gridster: false,
-    active_hash: "some updated hash",
+    hash: "some updated hash",
     manager: false,
     lastname: "some updated lastname",
     salt: "some updated salt",
     firstname: "some updated firstname"
   }
-  @invalid_attrs %{admin: nil, email: nil, gridster: nil, active_hash: nil, manager: nil, lastname: nil, salt: nil, firstname: nil}
+  @invalid_attrs %{admin: nil, email: nil, gridster: nil, hash: nil, manager: nil, lastname: nil, salt: nil, firstname: nil}
 
   setup do
     conn = conn() |> put_req_header("accept", "application/json") |> put_req_header("authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfaGFzaCI6ImZjN2U2ODNjYzBlOTFiNDcyY2IxZGY3YTUxYjM4MmFkIiwiYWRtaW4iOnRydWUsImVtYWlsIjoidGhlQG1haWwuY29tIiwiZmlyc3RuYW1lIjoiSHVnbyIsImdyaWRzdGVyIjpmYWxzZSwiaWQiOjUsImxhc3RuYW1lIjoiU2lsdmEiLCJtYW5hZ2VyIjpmYWxzZSwic2FsdCI6InMwbVJJZGxLdkkifQ.JiNSqgC0E3XXusxViD7_DYQKFi5oEqHwGU7pceeWviw")
@@ -59,7 +59,7 @@ defmodule TimeManagerWeb.UserControllerTest do
     #            "admin" => true,
     #            "email" => "email@me.com",
     #            "gridster" => true,
-    #            "active_hash" => "some hash",
+    #            "hash" => "some hash",
     #            "manager" => true,
     #            "lastname" => "some lastname",
     #            "salt" => "some salt",
@@ -87,7 +87,7 @@ defmodule TimeManagerWeb.UserControllerTest do
     #            "admin" => false,
     #            "email" => "email@me.com",
     #            "gridster" => false,
-    #            "active_hash" => "some updated hash",
+    #            "hash" => "some updated hash",
     #            "manager" => false,
     #            "lastname" => "some updated lastname",
     #            "salt" => "some updated salt",

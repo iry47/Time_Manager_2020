@@ -8,9 +8,9 @@ defmodule TimeManager.AccountsTest do
   describe "users" do
     alias TimeManager.Accounts.User
 
-    @valid_attrs %{admin: true, email: "email@me.com", gridster: true, active_hash: "some active_hash", manager: true, firstname: "some firstname", salt: "some salt", lastname: "some lastname"}
-    @update_attrs %{admin: false, email: "updated@me.com", gridster: false, active_hash: "some updated active_hash", manager: false, firstname: "some updated firstname", salt: "some updated salt", lastname: "some updated lastname"}
-    @invalid_attrs %{admin: nil, email: nil, gridster: nil, active_hash: nil, manager: nil, firstname: nil, salt: nil, lastname: nil}
+    @valid_attrs %{admin: true, email: "email@me.com", gridster: true, hash: "some hash", manager: true, firstname: "some firstname", salt: "some salt", lastname: "some lastname"}
+    @update_attrs %{admin: false, email: "updated@me.com", gridster: false, hash: "some updated hash", manager: false, firstname: "some updated firstname", salt: "some updated salt", lastname: "some updated lastname"}
+    @invalid_attrs %{admin: nil, email: nil, gridster: nil, hash: nil, manager: nil, firstname: nil, salt: nil, lastname: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -36,7 +36,7 @@ defmodule TimeManager.AccountsTest do
       assert user.admin == true
       assert user.email == "email@me.com"
       assert user.gridster == true
-      assert user.active_hash == "some active_hash"
+      assert user.hash == "some hash"
       assert user.manager == true
       assert user.firstname == "some firstname"
       assert user.salt == "some salt"
@@ -53,7 +53,7 @@ defmodule TimeManager.AccountsTest do
       assert user.admin == false
       assert user.email == "updated@me.com"
       assert user.gridster == false
-      assert user.active_hash == "some updated active_hash"
+      assert user.hash == "some updated hash"
       assert user.manager == false
       assert user.firstname == "some updated firstname"
       assert user.salt == "some updated salt"
@@ -109,7 +109,7 @@ defmodule TimeManager.AccountsTest do
 
     defp valid_account_params do
       user = TimeManager.Accounts.get_user_by_email!(%{email: "email@me.com"}) 
-      assert true = Bcrypt.Base.active_hash_password("ChangeMe123", "s0mRIdlKvI") == user.active_active_hash     
+      assert true = Bcrypt.Base.hash_password("ChangeMe123", "s0mRIdlKvI") == user.active_hash     
     end
   end
   
