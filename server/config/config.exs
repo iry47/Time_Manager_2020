@@ -25,7 +25,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :bcrypt_elixir, log_rounds: 4
+# config :bcrypt_elixir, log_rounds: 4
 
 
 

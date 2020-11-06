@@ -46,12 +46,6 @@ import Gridster from "@/components/Vuegridster/vue-gridster.vue";
 import GridsterItem from "@/components/Vuegridster/vue-gridster-item.vue";
 /* ####################################################################### */
 /* SERVICE */
-// import User from "@/services/ApiAxios/User/UserService";
-// import Service from "@/services/ApiAxios/Service/Service";
-// import ServiceUser from "@/services/ApiAxios/Service/ServiceUser";
-// import ServiceWidget from "@/services/ApiAxios/Service/ServiceWidget";
-// import WidgetUser from "@/services/ApiAxios/Widget/WidgetUser";
-// import Widget from "@/services/ApiAxios/Widget/Widget";
 /* ####################################################################### */
 /* WIDGET */
 import GraphOne from '@/components/Dashboard/Admin/UserView/Widgets/GraphOne';
@@ -73,12 +67,6 @@ export default {
   },
   data() {
     return {
-      userview: null,
-      services: null,
-      servicesWidgets: null,
-      servicesUsers: null,
-      widgetsUsers: null,
-      widgets: null,
       active: false,
       items: [
         { sizeX: 2, sizeY: 2, row: 0, col: 0 },
@@ -121,15 +109,6 @@ export default {
     this.options.pushing = false;
     this.options.floating = false;
     this.options.swapping = false;
-    this.userview = (await User.getUser(this.user.id)).data;
-    if (this.userview.gridster) {
-      this.active = true;
-    }
-    this.services = (await Service.index()).data;
-    this.servicesUsers = (await ServiceUser.getUserService(this.user.id)).data;
-    this.servicesWidgets = (await ServiceWidget.index()).data;
-    this.widgets = (await Widget.index()).data;
-    this.widgetsUsers = (await WidgetUser.getUserWidget(this.user.id)).data;
   }
 };
 </script>

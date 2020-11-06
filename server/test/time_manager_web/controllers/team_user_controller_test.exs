@@ -5,12 +5,19 @@ defmodule TimeManagerWeb.TeamUserControllerTest do
   alias TimeManager.Accounts.TeamUser
 
   @create_attrs %{
-
+      user: 1,
+      team: 1
   }
   @update_attrs %{
-
+      user: 1,
+      team: 2
   }
-  @invalid_attrs %{}
+  @invalid_attrs %{user: nil, team: nil}
+
+  setup do
+    conn = conn() |> put_req_header("accept", "application/json") |> put_req_header("authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfaGFzaCI6ImZjN2U2ODNjYzBlOTFiNDcyY2IxZGY3YTUxYjM4MmFkIiwiYWRtaW4iOnRydWUsImVtYWlsIjoidGhlQG1haWwuY29tIiwiZmlyc3RuYW1lIjoiSHVnbyIsImdyaWRzdGVyIjpmYWxzZSwiaWQiOjUsImxhc3RuYW1lIjoiU2lsdmEiLCJtYW5hZ2VyIjpmYWxzZSwic2FsdCI6InMwbVJJZGxLdkkifQ.JiNSqgC0E3XXusxViD7_DYQKFi5oEqHwGU7pceeWviw")
+    {:ok, conn: conn}
+  end
 
   def fixture(:team_user) do
     {:ok, team_user} = Accounts.create_team_user(@create_attrs)

@@ -51,7 +51,7 @@ defmodule TimeManager.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user_by_email!(email), do: Repo.get_by!(User, email: email)
+  def get_user_by_email!(email), do: Repo.get_by!(User, email)
 
   @doc """
   Creates a user.
@@ -493,7 +493,6 @@ defmodule TimeManager.Accounts do
   Deletes a widget_user.
 
   ## Examples
-
       iex> delete_widget_user(widget_user)
       {:ok, %WidgetUser{}}
 
