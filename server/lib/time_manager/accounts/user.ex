@@ -12,8 +12,9 @@ defmodule TimeManager.Accounts.User do
     field :active_hash, :string
     field :manager, :boolean, default: false
     field :salt, :string
-    field :firstname, :string
-    field :lastname, :string
+    field :firstname, :string, default: ""
+    field :lastname, :string, default: ""
+    field :password, :string, virtual: true
 
     timestamps()
   end
@@ -29,13 +30,15 @@ defmodule TimeManager.Accounts.User do
 
   def registration_changeset(%User{} = user, attrs) do
     salt = Bcrypt.gen_salt()
+    active_hash = Bcrypt.Base.hash_password(attrs["password"], salt)
     user
-    |> cast(attrs, [:email, :active_hash])
-    |> validate_required([:email, :active_hash])
+    |> cast(attrs, [:email])
+    |> validate_required([:email])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
     |> Ecto.Changeset.cast(%{salt: salt}, [:salt])
-    |> Ecto.Changeset.put_change(:active_hash, Bcrypt.Base.hash_password(attrs["active_hash"], salt))
+    |> Ecto.Changeset.put_change(:active_hash, active_hash)
+    |> cast(%{active_hash: active_hash}, [:active_hash])
   end
 
 end
