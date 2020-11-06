@@ -55,7 +55,7 @@ import GridsterItem from "@/components/Vuegridster/vue-gridster-item.vue";
 /* ####################################################################### */
 /* WIDGET */
 import GraphOne from '@/components/Dashboard/Employee/Widgets/GraphOne';
-import GraphTwo from '@/components/Dashboard/Employee/Widgets/GrapheTwo';
+import GraphTwo from '@/components/Dashboard/Employee/Widgets/GraphTwo';
 import WidgetBadge from '@/components/Dashboard/Employee/Widgets/WidgetBadge';
 import WidgetWorkinghour from '@/components/Dashboard/Employee/Widgets/WidgetWorkinghour';
 

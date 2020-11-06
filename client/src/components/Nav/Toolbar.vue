@@ -16,7 +16,7 @@
       @click="navTo({name: 'dashboard'}, 'one')"
     />
     <v-spacer></v-spacer>
-    <v-btn v-if="!admin && isUserLoggedIn" :href="'mailto:geoffroy.huck@epitech.eu?subject=SUPPORT'" icon small x-large>
+    <v-btn v-if="!admin && isUserLoggedIn" :href="'mailto:support-timemangement@yopmail.com?subject=SUPPORT'" icon small x-large>
       <v-icon>email</v-icon>
     </v-btn>
       <v-btn text v-if="isUserLoggedIn" @click="navTo({name: 'settings'}, 'three')" class="hidden-sm-and-down body-1s font-weight-bold">

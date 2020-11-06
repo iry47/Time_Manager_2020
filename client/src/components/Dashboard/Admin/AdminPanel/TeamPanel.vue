@@ -77,6 +77,7 @@ export default {
   },
   async mounted() {
     this.users = (await UserService.index()).data;
+    console.log(this.users)
     for (let i = 0, j = 0; i !== this.users.length; i++) {
       if (this.users[i].admin === true) {
         this.users.splice(i, 1)
