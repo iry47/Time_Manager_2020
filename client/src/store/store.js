@@ -36,6 +36,12 @@ export default new Vuex.Store({ // for keeping tracking of state
         // setServiceActiveOpenWeather(state, value) {
         //     state.servicesActive.openWeather = value
         // },
+        setReset(state) {
+            const s = initialState()
+            Object.keys(s).forEach(key => {
+              state[key] = s[key]
+            })
+        },
         setActive(state, active) {
             if (active === 'one') {
                 state.active.one = 'primary'
@@ -82,6 +88,9 @@ export default new Vuex.Store({ // for keeping tracking of state
         // setServiceActiveOpenWeather({ commit }, value) {
         //     commit('setServiceActiveOpenWeather', value)
         // },
+        setReset({ commit }) {
+            commit('setReset')
+        },
         setActive({ commit }, active) {
             commit('setActive', active)
         },

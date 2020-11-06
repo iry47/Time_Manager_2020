@@ -31,11 +31,8 @@
           <template v-slot:item.email="{item}">
           <a :href="'mailto:' + item.email + '?subject=INFO'" class="text-xs-left">{{item.email}}</a>
           </template>
-        <template v-slot:item.dayleft="{item}">
-          {{needCredential(item.dayleft, item.assign)}}
-        </template>
           <template v-slot:item.id="{item}">
-            <v-layout row align-center justify-center>
+            <v-layout align-center justify-center>
             <v-btn
               class="grey darken-1 font-weight-bold ml-1 mt-1"
               :to="{
@@ -43,7 +40,15 @@
                   params: {
                     userId: item.id}
               }"
-           >Edit</v-btn>
+            >Edit</v-btn>
+            <v-btn
+              class="grey darken-1 font-weight-bold ml-1 mt-1"
+              :to="{
+                  name: 'user',
+                  params: {
+                    userId: item.id}
+              }"
+            >View</v-btn>
             </v-layout>
           </template>
       </v-data-table>
@@ -62,6 +67,8 @@ export default {
     return {
       search: '',
       headers: [
+        {text: "Lastname", value: "lastname", sortable: false, align: "center"},
+        {text: "Firstname", value: "firstname", sortable: false, align: "center"},
         {text: "Email", value: "email", sortable: false, align: "center"},
         {text: "", value: "id"}
       ],
@@ -71,19 +78,13 @@ export default {
   async mounted() {
     this.users = (await UserService.index()).data;
     for (let i = 0, j = 0; i !== this.users.length; i++) {
-      if (this.users[i].admin === true || this.users[i].archive === true) {
+      if (this.users[i].admin === true) {
         this.users.splice(i, 1)
         i--
       }
     }
   },
   methods: {
-    needCredential(time, assign) {
-      if (!assign) {
-        return "-";
-      }
-      return time;
-    },
     isData(data) {
       if (data) {
         return (false)

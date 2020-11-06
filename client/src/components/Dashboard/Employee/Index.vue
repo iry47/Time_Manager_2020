@@ -2,7 +2,7 @@
   <v-container fluid grid-list-md justify-center>
     <v-layout class="mt-5" v-if="isUserLoggedIn && !admin" justify-center wrap>
       <v-flex>
-      <grid-widgets/>
+      <dashboard/>
     </v-flex>
     </v-layout>
   </v-container>
@@ -12,7 +12,7 @@
 import { mapState } from "vuex";
 
 /* GRIDSTER */
-import GridWidgets from "@/compoments/Dashboard/Employee/Dashboard";
+import Dashboard from "@/components/Dashboard/Employee/Dashboard";
 
 /* SERVICE */
 // import ServiceUser from "@/services/ApiAxios/Service/ServiceUser";
@@ -37,7 +37,7 @@ export default {
     ])
   },
   components: {
-    GridWidgets
+    Dashboard
   },
   props: {
     main: {

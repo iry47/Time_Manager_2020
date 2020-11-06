@@ -184,11 +184,6 @@ jobs:
           name: Install ansible
           command: pip install --user ansible
       - run:
-          name: Install roles for Ansible from galaxy
-          command: |
-            cd ~/repo/.cloud/auto_deploy
-            sudo ansible-galaxy install -r requirement.yml
-      - run:
           name: Add ansible.cfg
           command: export ANSIBLE_CONFIG=~/repo/.cloud/auto_deploy/ansible/ansible.cfg
       - run:

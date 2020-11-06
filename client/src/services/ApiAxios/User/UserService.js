@@ -8,11 +8,11 @@ export default {
             }
         })
     },
+    get(userId) {
+        return Api().get(`users/${userId}`)
+    },
     post(user) {
         return Api().post('users', user)
-    },
-    getUser(userId) {
-        return Api().get(`users/${userId}`)
     },
     put(user) {
         return Api().put(`users/${user.id}`, user)

@@ -18,7 +18,7 @@ defmodule TimeManager.Accounts.WidgetUser do
   @doc false
   def changeset(widget_user, attrs) do
     widget_user
-    |> cast(attrs, [:x, :y, :param_one, :param_two, :value_one, :value_two])
-    |> validate_required([:x, :y, :param_one, :param_two, :value_one, :value_two])
+    |> cast(attrs, [:x, :y, :param_one, :param_two, :value_one, :value_two, :user, :widget])
+    |> validate_required([:x, :y, :param_one, :param_two, :value_one, :value_two, :user, :widget])
   end
 end

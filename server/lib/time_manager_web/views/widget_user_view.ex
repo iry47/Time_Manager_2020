@@ -3,11 +3,11 @@ defmodule TimeManagerWeb.WidgetUserView do
   alias TimeManagerWeb.WidgetUserView
 
   def render("index.json", %{widgetusers: widgetusers}) do
-    %{data: render_many(widgetusers, WidgetUserView, "widget_user.json")}
+    render_many(widgetusers, WidgetUserView, "widget_user.json")
   end
 
   def render("show.json", %{widget_user: widget_user}) do
-    %{data: render_one(widget_user, WidgetUserView, "widget_user.json")}
+    render_one(widget_user, WidgetUserView, "widget_user.json")
   end
 
   def render("widget_user.json", %{widget_user: widget_user}) do

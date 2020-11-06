@@ -4,7 +4,7 @@ defmodule TimeManagerWeb.UserWidgetView do
 
 
   def render("show.json", %{widget_user: widget_user}) do
-    %{data: render_one(widget_user, UserWidgetView, "widget_user.json")}
+    render_one(widget_user, UserWidgetView, "widget_user.json")
   end
 
   def render("widget_user.json", %{widget_user: widget_user}) do
