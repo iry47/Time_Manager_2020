@@ -53,6 +53,7 @@ export default {
       this.$store.dispatch("setUser", null);
       this.$store.dispatch("setDark", false);
       this.$store.dispatch("setGrad", "to top right, #5D29A9, #CBC8D0");
+      // this.$store.dispatch("setReset");
       this.$router.push({
         name: "home"
       });

@@ -18,7 +18,7 @@ defmodule TimeManagerWeb.Router do
   end
 
   scope "/", TimeManagerWeb do
-    pipe_through [:api, :auth]
+    pipe_through [:api]
 
     resources "/users", UserController
 
