@@ -188,7 +188,7 @@ jobs:
           command: export ANSIBLE_CONFIG=~/repo/.cloud/auto_deploy/ansible/ansible.cfg
       - run:
           name: Modify python ec2 script permissions
-          command: chmod 0744 ~/repo/.cloud/auto_deploy/ansible/inventory/ec2.py
+          command: chmod 0755 ~/repo/.cloud/auto_deploy/ansible/inventory/ec2.py
       - run:
           name: Install pip dependencies for ec2 script
           command: pip install -r ~/repo/.cloud/auto_deploy/requirement.txt
