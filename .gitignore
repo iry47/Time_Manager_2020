@@ -15,4 +15,4 @@ config/*.secret.exs
 dist/*
 !*/.gitkeep
 node_modules
-
+package-lock.json
