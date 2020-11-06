@@ -1,12 +1,14 @@
 <template>
 <v-container fluid grid-list-md>
-  <!-- <v-layout class="mt-5" v-if="isUserLoggedIn && admin" justify-center row wrap>
-  </v-layout> -->
+  <v-layout class="mt-5" v-if="isUserLoggedIn && manager" justify-center row wrap>
+    <teams></teams>
+  </v-layout>
 </v-container>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Teams from '@/components/Dashboard/Manager/Team/Teams';
 
 export default {
   data() {

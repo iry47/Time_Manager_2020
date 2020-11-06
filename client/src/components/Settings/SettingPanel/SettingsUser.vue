@@ -26,6 +26,42 @@
         </v-fade-transition>
       </template>
     </v-text-field> -->
+          <!-- <template v-slot:append>
+        <v-fade-transition leave-absolute>
+          <v-icon>domain</v-icon>
+        </v-fade-transition>
+      </template>
+    </v-text-field>
+    <v-text-field
+      class="padding-input"
+      outline
+      clearable
+      v-if="admin"
+      label="First name"
+      v-model="adminview.firstname"
+      :rules="[required]"
+    >
+      <template v-slot:append>
+        <v-fade-transition leave-absolute>
+          <v-icon>account_box</v-icon>
+        </v-fade-transition>
+      </template>
+    </v-text-field>
+    <v-text-field
+      class="padding-input"
+      outline
+      clearable
+      v-if="admin"
+      label="Last name"
+      v-model="adminview.lastname"
+      :rules="[required]"
+    >
+      <template v-slot:append>
+        <v-fade-transition leave-absolute>
+          <v-icon>account_box</v-icon>
+        </v-fade-transition>
+      </template>
+    </v-text-field> -->
     <v-text-field
       label="Current password"
       v-model="oldPassword"

@@ -22,30 +22,30 @@ Repo.insert! %User{
     admin: false,
     email: "manager@me.com",
     gridster: false,
-    active_hash: "fc7e683cc0e91b472cb1df7a51b382ad",
+    active_hash: "$2b$12$x19JHoW5pF4Rcj8cNb/uqe1XbWASACYodW.VXrFvTG9LDquemGXP.",
     manager: true,
     lastname: "manager",
-    salt: "s0mRIdlKvI",
+    salt: "$2b$12$x19JHoW5pF4Rcj8cNb/uqe",
     firstname: "manager"
 }
 Repo.insert! %User{
     admin: true,
     email: "admin@me.com",
     gridster: false,
-    active_hash: "fc7e683cc0e91b472cb1df7a51b382ad",
+    active_hash: "$2b$12$x19JHoW5pF4Rcj8cNb/uqe1XbWASACYodW.VXrFvTG9LDquemGXP.",
     manager: false,
     lastname: "admin",
-    salt: "s0mRIdlKvI",
+    salt: "$2b$12$x19JHoW5pF4Rcj8cNb/uqe",
     firstname: "admin"
 }
 Repo.insert! %User{
     admin: false,
     email: "employee@me.com",
     gridster: false,
-    active_hash: "fc7e683cc0e91b472cb1df7a51b382ad",
+    active_hash: "$2b$12$x19JHoW5pF4Rcj8cNb/uqe1XbWASACYodW.VXrFvTG9LDquemGXP.",
     manager: true,
     lastname: "employee",
-    salt: "s0mRIdlKvI",
+    salt: "$2b$12$x19JHoW5pF4Rcj8cNb/uqe",
     firstname: "employee"
 }
 Repo.insert! %Workingtime{

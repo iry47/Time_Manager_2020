@@ -3,6 +3,7 @@ defmodule TimeManagerWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug CORSPlug, origin: "http://localhost:8081"
   end
 
   pipeline :auth do
@@ -24,7 +25,7 @@ defmodule TimeManagerWeb.Router do
     resources "/workingtimes", WorkingtimeController
     get "/workingtimes/:user", WorkingtimeController, :new
     get "/workingtimes/:user/:id", WorkingtimeController, :show, singleton: true
-    
+
     get "/clocks/userID", ClockController, :show
     post "/clocks/:user", ClockController, :create
 
@@ -32,10 +33,10 @@ defmodule TimeManagerWeb.Router do
     get "/teamusers/:team", TeamUserController, :show
     get "/teamusers/:user", TeamUserController, :show
 
-    resources "/teams", TeamController, only: [:show, :index]
+    resources "/teams", TeamController
 
-    get "/widgets", WidgetController, :index
-    get "/widgets/:id", WidgetController, :show
+    resources "/widgets", WidgetController
+    # get "/widgets/:id", WidgetController, :show
 
     resources "/widgetusers", WidgetUserController, except: [:show]
     get "/widgetusers/:widget", WidgetUserController, :show

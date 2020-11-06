@@ -40,5 +40,8 @@ defmodule TimeManagerWeb.Endpoint do
     key: "_time_manager_key",
     signing_salt: "Xsp2gnaW"
 
+  plug CORSPlug
+
   plug TimeManagerWeb.Router
+
 end

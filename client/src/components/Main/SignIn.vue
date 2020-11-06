@@ -87,17 +87,10 @@ export default {
         this.$store.dispatch("setToken", response.token);
         this.$store.dispatch("setDark", true);
         this.$store.dispatch("setGrad", "to top right, #FFFFFF, #ECE9E6");
-        if (!this.admin) {
-          this.$store.dispatch("setActive", 'one')
-          this.$router.push({
-            name: "dashboard"
-          });
-        } else {
-          this.$store.dispatch("setActive", "two")
-          this.$router.push({
-            name: "users"
-          });
-        }
+        this.$store.dispatch("setActive", 'one')
+        this.$router.push({
+          name: "dashboard"
+        });
         Swal.fire({
           position: 'top-end',
           type: 'success',

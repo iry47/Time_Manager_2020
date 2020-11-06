@@ -27,9 +27,11 @@
     </div>
     <gridster :options="options">
       <gridster-item v-for="(item, index) in items" :item="item" :key="index">
-        <!-- 0 to 7 depending on size array items -->
-        <widget-meteo-week class="widget" v-if="index === 0 && servicesUser.townOpenWeather"></widget-meteo-week>
-        <widget-meteo-day class="widget" v-if="index === 1 && servicesUser.townOpenWeather"></widget-meteo-day>
+        <!-- 0 to 4 depending on size array items -->
+        <widget-badge class="widget" v-if="index === 0"></widget-badge>
+        <widget-workinghour class="widget" v-if="index === 1"></widget-workinghour>
+        <graph-one class="widget" v-if="index === 2"></graph-one>
+        <graph-two class="widget" v-if="index === 3"></graph-two>
       </gridster-item>
     </gridster>
   </div>
@@ -39,22 +41,23 @@
 import { mapState } from "vuex";
 /* ####################################################################### */
 /* GRIDSTER */
-import "../../Vuegridster/css/vue-gridster.css";
-import Gridster from "../../Vuegridster/vue-gridster.vue";
-import GridsterItem from "../../Vuegridster/vue-gridster-item.vue";
+import "@/components/Vuegridster/css/vue-gridster.css";
+import Gridster from "@/components/Vuegridster/vue-gridster.vue";
+import GridsterItem from "@/components/Vuegridster/vue-gridster-item.vue";
 /* ####################################################################### */
 /* SERVICE */
-import User from "@/services/ApiAxios/User/UserService";
-import Service from "@/services/ApiAxios/Service/Service";
-import ServiceUser from "@/services/ApiAxios/Service/ServiceUser";
-import ServiceWidget from "@/services/ApiAxios/Service/ServiceWidget";
-import WidgetUser from "@/services/ApiAxios/Widget/WidgetUser";
-import Widget from "@/services/ApiAxios/Widget/Widget";
+// import User from "@/services/ApiAxios/User/UserService";
+// import Service from "@/services/ApiAxios/Service/Service";
+// import ServiceUser from "@/services/ApiAxios/Service/ServiceUser";
+// import ServiceWidget from "@/services/ApiAxios/Service/ServiceWidget";
+// import WidgetUser from "@/services/ApiAxios/Widget/WidgetUser";
+// import Widget from "@/services/ApiAxios/Widget/Widget";
 /* ####################################################################### */
 /* WIDGET */
-/* OPENWEATHER */
-// import WidgetMeteoWeek from "../Widgets/WidgetsOpenWeather/WidgetMeteoWeek";
-// import WidgetMeteoDay from "../Widgets/WidgetsOpenWeather/WidgetMeteoDay";
+import GraphOne from '@/components/Dashboard/Employee/Widgets/GraphOne';
+import GraphTwo from '@/components/Dashboard/Employee/Widgets/GrapheTwo';
+import WidgetBadge from '@/components/Dashboard/Employee/Widgets/WidgetBadge';
+import WidgetWorkinghour from '@/components/Dashboard/Employee/Widgets/WidgetWorkinghour';
 
 export default {
   computed: {
@@ -62,7 +65,11 @@ export default {
   },
   components: {
     Gridster,
-    GridsterItem
+    GridsterItem,
+    GraphOne,
+    GraphTwo,
+    WidgetBadge,
+    WidgetWorkinghour
   },
   data() {
     return {
@@ -75,9 +82,9 @@ export default {
       active: false,
       items: [
         { sizeX: 2, sizeY: 2, row: 0, col: 0 },
-        { sizeX: 2, sizeY: 2, row: 0, col: 2 }
-        // { sizeX: 2, sizeY: 2, row: 4, col: 0 },
-        // { sizeX: 2, sizeY: 2, row: 4, col: 2 }
+        { sizeX: 2, sizeY: 2, row: 0, col: 2 },
+        { sizeX: 2, sizeY: 2, row: 4, col: 0 },
+        { sizeX: 2, sizeY: 2, row: 4, col: 2 }
       ],
       options: {
         margins: [10, 10],

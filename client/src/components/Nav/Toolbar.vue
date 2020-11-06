@@ -10,30 +10,17 @@
       @click="navTo({name: 'home'}, 'none')"
     />
     <img
-      v-if="isUserLoggedIn && !admin"
+      v-if="isUserLoggedIn"
       src="../../assets/Logo.png"
       aspect-ratio="0.9"
       @click="navTo({name: 'dashboard'}, 'one')"
     />
-    <img
-      v-if="isUserLoggedIn && admin"
-      src="../../assets/Logo.png"
-      aspect-ratio="0.9"
-      @click="navTo({name: 'users'}, 'two')"
-    />
-    <!-- <img
-      v-if="isUserLoggedIn && manager"
-      src="../../assets/Logo.png"
-      aspect-ratio="0.9"
-      @click="navTo({name: 'team'}, 'two')"
-    /> -->
     <v-spacer></v-spacer>
     <v-btn v-if="!admin && isUserLoggedIn" :href="'mailto:geoffroy.huck@epitech.eu?subject=SUPPORT'" icon small x-large>
       <v-icon>email</v-icon>
     </v-btn>
       <v-btn text v-if="isUserLoggedIn" @click="navTo({name: 'settings'}, 'three')" class="hidden-sm-and-down body-1s font-weight-bold">
-        <!-- {{this.user.firstname}} {{this.user.lastname}}  ADD WHEN CHANGE -->
-        {{ this.user.username }} 
+        {{this.user.firstname}} {{this.user.lastname}}
       </v-btn>
     <v-toolbar-items>
     <v-btn v-if="!isUserLoggedIn" text :to="{name: 'signin'}" class="body-2 font-weight-bold">Sign in</v-btn>

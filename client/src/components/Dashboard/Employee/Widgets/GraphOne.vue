@@ -1,11 +1,9 @@
 <template>
   <widget v-if="isUserLoggedIn">
-    <div id="openweather-current"></div>
   </widget>
 </template>
 
 <script>
-import OpenWeatherService from "@/services/OpenWeather/OpenWeatherService";
 import { mapState } from "vuex";
 
 export default {
@@ -17,8 +15,7 @@ export default {
   },
   methods: {
   },
-  mounted() {
-    generateCurrentWeather(this.servicesUser.townOpenWeather)
+  async mounted() {
   },
   watch: {}
 };
