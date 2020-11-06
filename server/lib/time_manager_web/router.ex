@@ -12,7 +12,7 @@ defmodule TimeManagerWeb.Router do
 
   scope "/", TimeManagerWeb do
     pipe_through [:api]
-
+    get "/blank", HomeController, :show
     resources "/register", RegistrationController, only: [:show, :create, :new]
     resources "/signin", SessionController, only: [:show, :create]
   end
@@ -23,6 +23,7 @@ defmodule TimeManagerWeb.Router do
     resources "/users", UserController
 
     resources "/workingtimes", WorkingtimeController
+    post "/workingtimes/:user", WorkingtimeController, :create
     get "/workingtimes/:user", WorkingtimeController, :new
     get "/workingtimes/:user/:id", WorkingtimeController, :show, singleton: true
 
@@ -33,9 +34,9 @@ defmodule TimeManagerWeb.Router do
     get "/teamusers/:team", TeamUserController, :show
     get "/teamusers/:user", TeamUserController, :show
 
-    resources "/teams", TeamController
+    resources "/teams", TeamController, except: [:new]
 
-    resources "/widgets", WidgetController
+    resources "/widgets", WidgetController, except: [:new]
     # get "/widgets/:id", WidgetController, :show
 
     resources "/widgetusers", WidgetUserController, except: [:show]
