@@ -14,7 +14,7 @@ defmodule TimeManager.Authentication do
     query = Ecto.Query.from(u in User, where: u.email == ^params["email"])
 
     TimeManager.Repo.one(query)
-    |> check_password(params["active_hash"])
+    |> check_password(params["password"])
 
   end
 
