@@ -32,7 +32,7 @@ defmodule TimeManager.Accounts.User do
     salt = Bcrypt.gen_salt()
     active_hash = Bcrypt.Base.hash_password(attrs["password"], salt)
     user
-    |> cast(attrs, [:email])
+    |> cast(attrs, [:firstname, :lastname, :email, :active_hash, :salt, :admin, :manager, :gridster])
     |> validate_required([:email])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)

@@ -7,6 +7,7 @@ defmodule TimeManagerWeb.AuthenticationPlug do
   def call(conn, _opts) do
     case Token.decode(conn) do
       {:ok, claims} -> authorized(conn, claims)
+      {:ok, _claims} -> authorized(conn, %{})
       _ -> unauthorized(conn)
     end
   end
@@ -17,6 +18,6 @@ defmodule TimeManagerWeb.AuthenticationPlug do
 
   def unauthorized(conn) do
       conn
-     |> put_status(:unauthorized)
+      |> put_status(:unauthorized)
   end
 end
