@@ -2,10 +2,10 @@
 <v-container fluid grid-list-md>
   <v-layout class="mt-5" v-if="isUserLoggedIn && admin" justify-center row wrap>
     <v-flex fill-height xs12 sm10 md9 d-flex class="mt-2">
-      <users-client-panel/>
+      <user-panel/>
     </v-flex>
     <v-flex fill-height xs12 sm10 md9 d-flex class="mt-2">
-      <users-admin-panel/>
+      <admin-panel/>
     </v-flex>
   </v-layout>
 </v-container>
@@ -13,9 +13,9 @@
 
 <script>
 import { mapState } from "vuex";
-import AdminPanel from "./ItemUser/AdminPanel";
-import UserPanel from "./ItemUser/UserPanel";
-// import UserService from "@/services/ApiAxios/User/UserService";
+import AdminPanel from "@/components/Dashboard/Admin/AdminPanel/AdminPanel";
+import UserPanel from "@/components/Dashboard/Admin/AdminPanel/UserPanel";
+import UserService from "@/services/ApiAxios/User/UserService";
 
 export default {
   data() {
