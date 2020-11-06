@@ -15,7 +15,6 @@
 import { mapState } from "vuex";
 import AdminPanel from "@/components/Dashboard/Admin/AdminPanel/AdminPanel";
 import UserPanel from "@/components/Dashboard/Admin/AdminPanel/UserPanel";
-import UserService from "@/services/ApiAxios/User/UserService";
 
 export default {
   data() {
@@ -27,7 +26,6 @@ export default {
     ...mapState(["isUserLoggedIn", "user", "admin", "manager"])
   },
   async mounted() {
-    this.users = (await UserService.index()).data;
   },
   components: {
     AdminPanel,
