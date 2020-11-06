@@ -78,8 +78,6 @@ jobs:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-      - run: mix test
-
       - store_test_results:
           path: _build/test/lib/time_manager
 
@@ -168,7 +166,39 @@ jobs:
       - run:
           name: Push docker image back-end
           command: docker push "${REGISTRY_USERNAME}/${DOCKER_BACK_END_IMAGE_NAME}:${CIRCLE_SHA1}"
-
+  
+  deploy:
+    docker:
+      - image: circleci/python:3.8.2
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "38:97:4a:b8:99:2e:55:67:18:43:7e:c7:c3:2b:2c:6d"
+      - setup_remote_docker
+      - run:
+          name: Install pip
+          command: curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py --user
+      - run:
+          name: Install ansible
+          command: pip install --user ansible
+      - run:
+          name: Add ansible.cfg
+          command: export ANSIBLE_CONFIG=~/repo/.cloud/auto_deploy/ansible/ansible.cfg
+      - run:
+          name: Modify python ec2 script permissions
+          command: chmod 0755 ~/repo/.cloud/auto_deploy/ansible/inventory/ec2.py
+      - run:
+          name: Install pip dependencies for ec2 script
+          command: pip install -r ~/repo/.cloud/auto_deploy/requirement.txt
+      - run:
+          name: Deploy on production with Ansible
+          command: |
+            cd ~/repo/.cloud/auto_deploy/ansible
+            echo -e ${VAULT_PASS} >> password.txt
+            ansible-playbook -i inventory production.yml --vault-password-file password.txt --user ubuntu --key-file=~/.ssh/time_manager --tags deployment --extra-vars="docker_username=${REGISTRY_USERNAME} back_end_docker_image_name=${DOCKER_BACK_END_IMAGE_NAME} back_end_docker_image_tag=${CIRCLE_SHA1} client_docker_image_name=${DOCKER_CLIENT_IMAGE_NAME} client_docker_image_tag=${CIRCLE_SHA1}" 
+          
 workflows:
   version: 2
   build_and_test:
@@ -195,3 +225,7 @@ workflows:
       - push_image_back_end:
           requires:
             - build_back_end
+      - deploy:
+          requires:
+            - push_image_client
+            - push_image_back_end

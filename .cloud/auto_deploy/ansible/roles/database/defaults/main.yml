@@ -1,0 +1,9 @@
+
+database_user: "{{ docker_users[0] }}"
+database_group: "{{ database_user }}"
+database_directory: "/home/{{ database_user }}"
+
+database_docker_image: postgres
+database_docker_tag: 13.0
+
+database_name: time_manager_db

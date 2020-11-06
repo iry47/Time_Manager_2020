@@ -3,7 +3,7 @@ defmodule TimeManagerWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug CORSPlug, origin: "http://localhost:8081"
+    plug CORSPlug, origin: "*"
   end
 
   pipeline :auth do
