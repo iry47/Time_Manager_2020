@@ -126,7 +126,7 @@
 
 <script>
 import { mapState } from "vuex";
-import UserService from "@/services/ApiAxios/User/UserService";
+import UserService from "@/services/User/UserService";
 import Swal from 'sweetalert2'
 import crypto from 'crypto'
 

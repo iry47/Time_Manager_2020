@@ -2,6 +2,39 @@
   <v-layout v-if="isUserLoggedIn && admin" v-on:keyup.enter="save()" justify-center>
     <v-flex xs6>
       <panel class="mt-5" title="Edit user">
+                  <v-text-field label="Last name" type="last name" v-model="userview.lastname"
+          outline clearable>
+            <template v-slot:prepend>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-icon v-on="on">help</v-icon>
+                </template>
+                Your lastname must be valid
+              </v-tooltip>
+            </template>
+            <template v-slot:append>
+              <v-fade-transition leave-absolute>
+                <v-icon>email</v-icon>
+              </v-fade-transition>
+            </template>
+          </v-text-field>
+        <br>          <v-text-field label="First name" type="firstname" v-model="userview.firstname"
+          outline clearable>
+            <template v-slot:prepend>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-icon v-on="on">help</v-icon>
+                </template>
+                Your firstname must be valid
+              </v-tooltip>
+            </template>
+            <template v-slot:append>
+              <v-fade-transition leave-absolute>
+                <v-icon>email</v-icon>
+              </v-fade-transition>
+            </template>
+          </v-text-field>
+        <br>
           <v-text-field label="Email" type="name" v-model="userview.email"
           outline clearable>
             <template v-slot:prepend>
@@ -86,6 +119,38 @@
               </v-fade-transition>
             </template>
           </v-text-field>
+        <v-switch v-if="isManager() == false" large color="red" v-model="userview.admin" label="Set Admin">
+          <template v-slot:prepend>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-icon v-on="on">help</v-icon>
+                </template>
+                Its for seeting the user to admin
+              </v-tooltip>
+            </template>
+            <template v-slot:append>
+              <v-fade-transition leave-absolute>
+                <v-icon>supervised_user_circle</v-icon>
+              </v-fade-transition>
+            </template>
+        </v-switch>
+        <br>
+        <v-switch v-if="isAdmin() == false" large color="red" v-model="userview.manager" label="Set Manager">
+          <template v-slot:prepend>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-icon v-on="on">help</v-icon>
+                </template>
+                Its for seeting the user to manager
+              </v-tooltip>
+            </template>
+            <template v-slot:append>
+              <v-fade-transition leave-absolute>
+                <v-icon>supervised_user_circle</v-icon>
+              </v-fade-transition>
+            </template>
+        </v-switch>
+        <br>
         <v-layout column class="mb-4" justify-center align-center>
         <span class="danger-alert">{{error}}</span>
         <v-layout class="mt-2" row justify-center align-center>
@@ -102,7 +167,7 @@
 </template>
 
 <script>
-import UserService from "@/services/ApiAxios/User/UserService";
+import UserService from "@/services/User/UserService";
 import { mapState } from "vuex";
 import crypto from "crypto"
 
@@ -113,7 +178,11 @@ export default {
       confirmPassword: null,
       confirmEmail: null,
       userview: {
+        lastname: null,
+        firstname: null,
         email: null,
+        manager: false,
+        admin: false,
         password: null,
         salt: null,
         hash: null
@@ -126,6 +195,12 @@ export default {
     ...mapState(["isUserLoggedIn", "route", "user", "admin", "manager"])
   },
   methods: {
+    isAdmin() {
+      return (this.userview.admin)
+    },
+    isManager() {
+      return (this.userview.manager)
+    },
     async displayPwd() {
       if (this.changePassword === false) {
         this.changePassword = true
@@ -171,7 +246,7 @@ export default {
       try {
         await UserService.put(this.userview);
         this.$router.push({
-          name: "users"
+          name: "dashboard"
         });
       } catch (err) {
         console.log(err);
@@ -180,18 +255,18 @@ export default {
     async undoEdit() {
       this.error = null
       const userId = this.route.params.userId;
-      this.userview = (await UserService.getUser(userId)).data;
+      this.userview = (await UserService.get(userId)).data;
       this.confirmPassword = this.userview.password
       this.confirmEmail = this.userview.email
     },
     async cancel() {
-      this.$router.push({name: 'users'})
+      this.$router.push({name: 'dashboard'})
     }
   },
   async mounted() {
     try {
       const userId = this.route.params.userId;
-      this.userview = (await UserService.getUser(userId)).data;
+      this.userview = (await UserService.get(userId)).data;
       this.confirmPassword = this.userview.password
       this.confirmEmail = this.userview.email
     } catch (err) {

@@ -23,11 +23,15 @@
             <v-btn
               class="grey darken-1 font-weight-bold ml-1 mt-1"
               :to="{
-                  name: 'edit-user',
+                  name: 'user-edit',
                   params: {
                     userId: item.id}
               }"
            >Edit</v-btn>
+          <v-btn
+              class="grey darken-1 font-weight-bold ml-1 mt-1"
+              @click="deleteUser(item.id)"
+            >Delete</v-btn>
             </v-layout>
           </template>
       </v-data-table>
@@ -39,7 +43,7 @@
 
 <script>
 import { mapState } from "vuex";
-import UserService from "@/services/ApiAxios/User/UserService"
+import UserService from "@/services/User/UserService"
 import Swal from 'sweetalert2'
 
 export default {
@@ -68,6 +72,16 @@ export default {
         return (false)
       } else {
         return (true)
+      }
+    },
+    async deleteUser(userId) {
+      await UserService.delete(userId)
+      this.users = (await UserService.index()).data;
+      for (let i = 0, j = 0; i !== this.users.length; i++) {
+        if (!this.users[i].admin || this.users[i].archive) {
+          this.users.splice(i, 1)
+          i--
+        }
       }
     },
     async mailTo(email) {

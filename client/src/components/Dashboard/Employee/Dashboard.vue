@@ -46,12 +46,12 @@ import Gridster from "@/components/Vuegridster/vue-gridster.vue";
 import GridsterItem from "@/components/Vuegridster/vue-gridster-item.vue";
 /* ####################################################################### */
 /* SERVICE */
-// import User from "@/services/ApiAxios/User/UserService";
-// import Service from "@/services/ApiAxios/Service/Service";
-// import ServiceUser from "@/services/ApiAxios/Service/ServiceUser";
-// import ServiceWidget from "@/services/ApiAxios/Service/ServiceWidget";
-// import WidgetUser from "@/services/ApiAxios/Widget/WidgetUser";
-// import Widget from "@/services/ApiAxios/Widget/Widget";
+// import User from "@/services/User/UserService";
+// import Service from "@/services/Service/Service";
+// import ServiceUser from "@/services/Service/ServiceUser";
+// import ServiceWidget from "@/services/Service/ServiceWidget";
+// import WidgetUser from "@/services/Widget/WidgetUser";
+// import Widget from "@/services/Widget/Widget";
 /* ####################################################################### */
 /* WIDGET */
 import GraphOne from '@/components/Dashboard/Employee/Widgets/GraphOne';

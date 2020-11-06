@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import UserService from "@/services/ApiAxios/User/UserService";
+import UserService from "@/services/User/UserService";
 import { mapState } from "vuex";
 import crypto from "crypto"
 

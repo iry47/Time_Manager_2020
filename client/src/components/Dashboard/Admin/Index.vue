@@ -7,6 +7,9 @@
     <v-flex fill-height xs12 sm10 md9 d-flex class="mt-2">
       <admin-panel/>
     </v-flex>
+    <v-flex fill-height xs12 sm10 md9 d-flex class="mt-2">
+      <team-panel/>
+    </v-flex>
   </v-layout>
 </v-container>
 </template>
@@ -15,7 +18,8 @@
 import { mapState } from "vuex";
 import AdminPanel from "@/components/Dashboard/Admin/AdminPanel/AdminPanel";
 import UserPanel from "@/components/Dashboard/Admin/AdminPanel/UserPanel";
-import UserService from "@/services/ApiAxios/User/UserService";
+import TeamPanel from "@/components/Dashboard/Admin/AdminPanel/TeamPanel";
+import UserService from "@/services/User/UserService";
 
 export default {
   data() {
@@ -27,11 +31,11 @@ export default {
     ...mapState(["isUserLoggedIn", "user", "admin", "manager"])
   },
   async mounted() {
-    this.users = (await UserService.index()).data;
   },
   components: {
     AdminPanel,
-    UserPanel
+    UserPanel,
+    TeamPanel
   },
   props: {
     main: {

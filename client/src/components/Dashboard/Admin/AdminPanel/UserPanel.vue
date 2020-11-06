@@ -31,12 +31,15 @@
           <template v-slot:item.email="{item}">
           <a :href="'mailto:' + item.email + '?subject=INFO'" class="text-xs-left">{{item.email}}</a>
           </template>
+          <template v-slot:item.manager="{item}">
+          {{ item.manager ? 'OUI' : 'NON' }}
+          </template>
           <template v-slot:item.id="{item}">
             <v-layout align-center justify-center>
             <v-btn
               class="grey darken-1 font-weight-bold ml-1 mt-1"
               :to="{
-                  name: 'edit-user',
+                  name: 'user-edit',
                   params: {
                     userId: item.id}
               }"
@@ -49,6 +52,10 @@
                     userId: item.id}
               }"
             >View</v-btn>
+            <v-btn
+              class="grey darken-1 font-weight-bold ml-1 mt-1"
+              @click="deleteUser(item.id)"
+            >Delete</v-btn>
             </v-layout>
           </template>
       </v-data-table>
@@ -59,7 +66,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import UserService from "@/services/ApiAxios/User/UserService"
+import UserService from "@/services/User/UserService"
 import Swal from 'sweetalert2'
 
 export default {
@@ -70,6 +77,7 @@ export default {
         {text: "Lastname", value: "lastname", sortable: false, align: "center"},
         {text: "Firstname", value: "firstname", sortable: false, align: "center"},
         {text: "Email", value: "email", sortable: false, align: "center"},
+        {text: "Manager", value: "manager", sortable: false, align: "center"},
         {text: "", value: "id"}
       ],
       users: []
@@ -91,6 +99,10 @@ export default {
       } else {
         return (true)
       }
+    },
+    async deleteUser(userId) {
+      await UserService.delete(userId)
+      this.users = (await UserService.index()).data;
     },
     async mailTo(email) {
       return ('mailto:' + email + "?subject=INFO")

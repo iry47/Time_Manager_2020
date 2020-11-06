@@ -1,11 +1,11 @@
 <template>
   <v-layout justify-center>
     <v-flex xs12 md10>
-    <panel title="Client">
+    <panel title="Team">
    <v-btn
       class="grey darken-3"
       slot="action"
-      :to="{name: 'user-create'}"
+      :to="{name: 'team-create'}"
       light
       medium
       absolute
@@ -23,11 +23,11 @@
       <v-data-table
         :headers="headers" 
         :items-per-page="5"
-        :loading="isData(users)" 
+        :loading="isData(teams)" 
         loading-text="No data for the moment"
         class="elevation-12"
         :search="search"
-        :items="users">
+        :items="teams">
           <template v-slot:item.email="{item}">
           <a :href="'mailto:' + item.email + '?subject=INFO'" class="text-xs-left">{{item.email}}</a>
           </template>
@@ -36,19 +36,23 @@
             <v-btn
               class="grey darken-1 font-weight-bold ml-1 mt-1"
               :to="{
-                  name: 'edit-user',
+                  name: 'team-edit',
                   params: {
-                    userId: item.id}
+                    teamId: item.id}
               }"
             >Edit</v-btn>
             <v-btn
               class="grey darken-1 font-weight-bold ml-1 mt-1"
               :to="{
-                  name: 'user',
+                  name: 'team',
                   params: {
-                    userId: item.id}
+                    teamId: item.id}
               }"
             >View</v-btn>
+            <v-btn
+              class="grey darken-1 font-weight-bold ml-1 mt-1"
+              @click="deleteTeam(item.id)"
+            >Delete</v-btn>
             </v-layout>
           </template>
       </v-data-table>
@@ -59,7 +63,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import UserService from "@/services/ApiAxios/User/UserService"
+import TeamService from "@/services/Team/TeamService"
 import Swal from 'sweetalert2'
 
 export default {
@@ -67,23 +71,14 @@ export default {
     return {
       search: '',
       headers: [
-        {text: "Lastname", value: "lastname", sortable: false, align: "center"},
-        {text: "Firstname", value: "firstname", sortable: false, align: "center"},
-        {text: "Email", value: "email", sortable: false, align: "center"},
+        {text: "Name", value: "name", sortable: false, align: "center"},
         {text: "", value: "id"}
       ],
-      users: []
+      teams: []
     }
   },
   async mounted() {
-    this.users = (await UserService.index()).data;
-    console.log(this.users)
-    for (let i = 0, j = 0; i !== this.users.length; i++) {
-      if (this.users[i].admin === true) {
-        this.users.splice(i, 1)
-        i--
-      }
-    }
+    this.teams = (await TeamService.index()).data;
   },
   methods: {
     isData(data) {
@@ -93,6 +88,10 @@ export default {
         return (true)
       }
     },
+    async deleteTeam(teamId) {
+      await TeamService.delete(teamId)
+      this.teams = (await TeamService.index()).data;
+    },
     async mailTo(email) {
       return ('mailto:' + email + "?subject=INFO")
     }
@@ -101,15 +100,9 @@ export default {
     ...mapState(["isUserLoggedIn", "user", "admin", "manager"])
   },
   watch: {
-    async users() {
+    async teams() {
       await setTimeout(async () => {
-        this.users = (await UserService.index()).data;
-        for (let i = 0, j = 0; i !== this.users.length; i++) {
-          if (this.users[i].admin === true || this.users[i].archive === true) {
-            this.users.splice(i, 1)
-            i--
-          }
-        }
+        this.teams = (await TeamService.index()).data;
       }, 5000)
     }
   }

@@ -15,8 +15,8 @@ import { mapState } from "vuex";
 import Dashboard from "@/components/Dashboard/Employee/Dashboard";
 
 /* SERVICE */
-// import ServiceUser from "@/services/ApiAxios/Service/ServiceUser";
-// import Service from "@/services/ApiAxios/Service/Service";
+// import ServiceUser from "@/services/Service/ServiceUser";
+// import Service from "@/services/Service/Service";
 
 export default {
   data() {

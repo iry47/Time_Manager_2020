@@ -77,8 +77,8 @@ import { mapState } from "vuex";
 import Swal from "sweetalert2";
 import crypto from "crypto";
 
-import ServiceUser from "@/services/ApiAxios/Service/ServiceUser";
-import Service from "@/services/ApiAxios/Service/Service";
+import ServiceUser from "@/services/Service/ServiceUser";
+import Service from "@/services/Service/Service";
 
 export default {
   data() {

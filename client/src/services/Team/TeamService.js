@@ -1,4 +1,4 @@
-import Api from '@/services/ApiAxios/Api'
+import Api from '@/services/Api'
 
 export default {
     index(search) {

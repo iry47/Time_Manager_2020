@@ -29,7 +29,7 @@
 import Toolbar from "@/components/Nav/Toolbar.vue";
 import Navbar from "@/components/Nav/NavBar.vue";
 import { mapState } from "vuex";
-import UserService from "@/services/ApiAxios/User/UserService";
+import UserService from "@/services/User/UserService";
 
 export default {
   data() {

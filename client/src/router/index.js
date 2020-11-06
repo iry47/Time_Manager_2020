@@ -15,9 +15,9 @@ import UserEdit from '@/components/Dashboard/Admin/Manage/UserEdit'
 import UserView from '@/components/Dashboard/Admin/UserView/Index'
 /* TEAM */
 import Teams from '@/components/Dashboard/Manager/Index'
-import TeamView from '@/components/Dashboard/Manager/Team/TeamView'
-import TeamEdit from '@/components/Dashboard/Manager/Team/Manage/TeamEdit'
-import TeamCreate from '@/components/Dashboard/Manager/Team/Manage/TeamCreate'
+import TeamView from '@/components/Dashboard/Admin/TeamView/Index'
+import TeamEdit from '@/components/Dashboard/Admin/Manage/TeamEdit'
+import TeamCreate from '@/components/Dashboard/Admin/Manage/TeamCreate'
 
 Vue.use(Router)
 
@@ -86,7 +86,7 @@ export default new Router({
         },
         {
             path: '/users/edit/:userId',
-            name: 'edit-user',
+            name: 'user-edit',
             component: UserEdit
         }
     ]
