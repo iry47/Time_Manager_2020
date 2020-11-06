@@ -21,7 +21,7 @@
           <v-list-item-title>Dashboard</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item class="mt-2" v-if="isUserLoggedIn && manager" @click="navTo({name: 'users'}, 'two')"
+      <v-list-item class="mt-2" v-if="isUserLoggedIn && manager" @click="navTo({name: 'teams'}, 'two')"
       :class="active.two">
         <v-list-item-action>
           <v-icon>people</v-icon>

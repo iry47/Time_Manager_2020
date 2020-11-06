@@ -27,7 +27,6 @@
     </div>
     <gridster :options="options">
       <gridster-item v-for="(item, index) in items" :item="item" :key="index">
-        <!-- 0 to 4 depending on size array items -->
         <widget-badge class="widget" v-if="index === 0"></widget-badge>
         <widget-workinghour class="widget" v-if="index === 1"></widget-workinghour>
         <graph-one class="widget" v-if="index === 2"></graph-one>
@@ -46,12 +45,12 @@ import Gridster from "@/components/Vuegridster/vue-gridster.vue";
 import GridsterItem from "@/components/Vuegridster/vue-gridster-item.vue";
 /* ####################################################################### */
 /* SERVICE */
-// import User from "@/services/User/UserService";
-// import Service from "@/services/Service/Service";
-// import ServiceUser from "@/services/Service/ServiceUser";
-// import ServiceWidget from "@/services/Service/ServiceWidget";
-// import WidgetUser from "@/services/Widget/WidgetUser";
-// import Widget from "@/services/Widget/Widget";
+import UserService from "@/services/User/UserService";
+import TeamService from "@/services/Team/TeamService";
+import TeamUserService from "@/services/Team/TeamUserService";
+import WidgetService from "@/services/Widget/WidgetService";
+import WidgetUserService from "@/services/Widget/WidgetUserService";
+import WorkingtimeService from "@/services/Workingtime/WorkingtimeService";
 /* ####################################################################### */
 /* WIDGET */
 import GraphOne from '@/components/Dashboard/Employee/Widgets/GraphOne';
@@ -61,7 +60,7 @@ import WidgetWorkinghour from '@/components/Dashboard/Employee/Widgets/WidgetWor
 
 export default {
   computed: {
-    ...mapState(["isUserLoggedIn", "user", "servicesUser", "servicesActive", "admin", "manager", "dark", "grad"])
+    ...mapState(["isUserLoggedIn", "user", "admin", "manager", "dark", "grad"])
   },
   components: {
     Gridster,
@@ -74,11 +73,6 @@ export default {
   data() {
     return {
       userview: null,
-      services: null,
-      servicesWidgets: null,
-      servicesUsers: null,
-      widgetsUsers: null,
-      widgets: null,
       active: false,
       items: [
         { sizeX: 2, sizeY: 2, row: 0, col: 0 },
@@ -100,18 +94,14 @@ export default {
   },
   watch: {
     active: async function() {
-      if (this.active) {
-        this.userview.gridster = true;
-        await User.put(this.userview);
-      } else {
-        this.userview.gridster = false;
-        await User.put(this.userview);
-        this.options.draggable.enabled = false;
-        this.options.resizable.enabled = false;
-        this.options.pushing = false;
-        this.options.floating = false;
-        this.options.swapping = false;
-      }
+      await UserService.put(this.userview);
+      this.userview.gridster = this.active;
+      await UserService.put(this.userview);
+      this.options.draggable.enabled = false;
+      this.options.resizable.enabled = false;
+      this.options.pushing = false;
+      this.options.floating = false;
+      this.options.swapping = false;
     }
   },
   methods: {},
@@ -121,15 +111,10 @@ export default {
     this.options.pushing = false;
     this.options.floating = false;
     this.options.swapping = false;
-    this.userview = (await User.getUser(this.user.id)).data;
+    this.userview = (await UserService.get(this.user.id)).data;
     if (this.userview.gridster) {
       this.active = true;
     }
-    this.services = (await Service.index()).data;
-    this.servicesUsers = (await ServiceUser.getUserService(this.user.id)).data;
-    this.servicesWidgets = (await ServiceWidget.index()).data;
-    this.widgets = (await Widget.index()).data;
-    this.widgetsUsers = (await WidgetUser.getUserWidget(this.user.id)).data;
   }
 };
 </script>

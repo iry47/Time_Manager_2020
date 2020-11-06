@@ -1,9 +1,9 @@
 <template>
 <v-container fluid grid-list-md>
-  <v-layout v-if="isUserLoggedIn && admin" justify-center row wrap>
+  <v-layout v-if="isUserLoggedIn && admin && !manager " justify-center row wrap>
     <dashboard-admin/>
   </v-layout>
-  <v-layout v-if="isUserLoggedIn && !admin" justify-center row wrap>
+  <v-layout v-if="isUserLoggedIn && (!admin || manager)" justify-center row wrap>
     <dashboard-employee/>
   </v-layout>
 </v-container>

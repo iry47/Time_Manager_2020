@@ -14,10 +14,6 @@ import { mapState } from "vuex";
 /* GRIDSTER */
 import Dashboard from "@/components/Dashboard/Employee/Dashboard";
 
-/* SERVICE */
-// import ServiceUser from "@/services/Service/ServiceUser";
-// import Service from "@/services/Service/Service";
-
 export default {
   data() {
     return {
@@ -29,8 +25,6 @@ export default {
     ...mapState([
       "isUserLoggedIn",
       "user",
-      "servicesUser",
-      "servicesActive",
       "admin",
       "dark",
       "grad"
@@ -48,19 +42,6 @@ export default {
   methods: {
   },
   async mounted() {
-    try {
-      // this.servicesUsers = (
-      //   await ServiceUser.getUserService(this.user.id)
-      // ).data;
-      // this.servicesUsers.forEach(data => {
-      //   if (data.ServiceId === 1) {
-      //     this.$store.dispatch("setServiceActiveOpenWeather", true);
-      //     this.$store.dispatch("setServiceUserTown", data.data);
-      //   } 
-      // });
-    } catch (err) {
-      console.log(err);
-    }
   }
 };
 </script>

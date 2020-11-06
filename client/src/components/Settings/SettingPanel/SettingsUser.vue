@@ -230,31 +230,27 @@ export default {
       try {
         this.error = null
         if (!this.admin) {
-          this.userview = (await UserService.getUser(this.user.id)).data;
+          this.userview = (await UserService.get(this.user.id)).data;
           this.oldPassword = null
           this.newPassword = null
           this.confirmPassword = null
         } else {
-          this.adminview = (await UserService.getUser(this.user.id)).data;
+          this.adminview = (await UserService.get(this.user.id)).data;
         }
       } catch (err) {
         console.log(err);
       }
     },
     async cancelSettings() {
-      if (!this.admin) {
-        this.$router.push({name: "dashboard"})
-      } else {
-        this.$router.push({name: "users"})
-      }
+      this.$router.push({name: "dashboard"})
     }
   },
   async mounted() {
     try {
       if (!this.admin) {
-        this.userview = (await UserService.getUser(this.user.id)).data;
+        this.userview = (await UserService.get(this.user.id)).data;
       } else {
-        this.adminview = (await UserService.getUser(this.user.id)).data;
+        this.adminview = (await UserService.get(this.user.id)).data;
       }
     } catch (err) {
       console.log(err);
