@@ -1,32 +1,37 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+/* HOME */
 import Home from '@/components/Main/Home'
-
+/* AUTHEN */
 import Register from '@/components/Main/Register'
 import SignIn from '@/components/Main/SignIn'
-
+/* DASHBOARD */
 import Dashboard from '@/components/Dashboard/Index'
-
+/* SETTINGS */
 import Settings from '@/components/Settings/Index'
-
-import Users from '@/components/Users/Index'
-import CreateUser from '@/components/Users/Manage/CreateUser'
-import EditUser from '@/components/Users/Manage/EditUser'
+/* USER */
+import UserCreate from '@/components/Dashboard/Admin/Manage/UserCreate'
+import UserEdit from '@/components/Dashboard/Admin/Manage/UserEdit'
+import UserView from '@/components/Dashboard/Admin/UserView/Index'
+/* TEAM */
+import Teams from '@/components/Dashboard/Manager/Index'
+import TeamView from '@/components/Dashboard/Manager/Team/TeamView'
+import TeamEdit from '@/components/Dashboard/Manager/Team/Manage/TeamEdit'
+import TeamCreate from '@/components/Dashboard/Manager/Team/Manage/TeamCreate'
 
 Vue.use(Router)
 
 export default new Router({
     hashbang: false,
     hash: false,
-    mode: 'history',
     routes: [{
+            path: '*',
+            redirect: '/'
+        },
+        {
             path: '/',
             name: 'home',
             component: Home
-        },
-        {
-            path: '*',
-            redirect: '/'
         },
         {
             path: '/register',
@@ -39,29 +44,49 @@ export default new Router({
             component: SignIn
         },
         {
-            path: '/dashboard',
-            name: 'dashboard',
-            component: Dashboard
-        },
-        {
             path: '/settings',
             name: 'settings',
             component: Settings
         },
         {
-            path: '/users',
-            name: 'users',
-            component: Users
+            path: '/dashboard',
+            name: 'dashboard',
+            component: Dashboard
+        },
+        {
+            path: '/teams',
+            name: 'teams',
+            component: Teams
+        },
+        {
+            path: '/teams/:teamId',
+            name: 'team',
+            component: TeamView
+        },
+        {
+            path: '/teams/create',
+            name: 'team-create',
+            component: TeamCreate
+        },
+        {
+            path: '/teams/edit/:teamId',
+            name: 'team-edit',
+            component: TeamEdit
+        },
+        {
+            path: '/users/:userId',
+            name: 'user',
+            component: UserView
         },
         {
             path: '/users/create',
             name: 'user-create',
-            component: CreateUser
+            component: UserCreate
         },
         {
-            path: '/users/:userId/edit',
+            path: '/users/edit/:userId',
             name: 'edit-user',
-            component: EditUser
+            component: UserEdit
         }
     ]
 })

@@ -3,13 +3,28 @@
     <v-flex elevation-24 xs12 sm8 md6  v-if="!$store.state.isUserLoggedIn">
       <panel title="Register">
         <form name="sandbox-form" autocomplete="off">
-          <v-text-field label="Username" type="username" v-model="username" outline clearable>
+          <v-text-field label="Last name" type="lastname" v-model="lastname" outline clearable>
             <template v-slot:prepend>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-icon v-on="on">help</v-icon>
                 </template>
-                Your username must be valid
+                Your lastname must be valid
+              </v-tooltip>
+            </template>
+            <template v-slot:append>
+              <v-fade-transition leave-absolute>
+                <v-icon>email</v-icon>
+              </v-fade-transition>
+            </template>
+          </v-text-field>
+          <v-text-field label="Firstname" type="firstname" v-model="firstname" outline clearable>
+            <template v-slot:prepend>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-icon v-on="on">help</v-icon>
+                </template>
+                Your firstname must be valid
               </v-tooltip>
             </template>
             <template v-slot:append>
@@ -92,16 +107,10 @@
               </v-fade-transition>
             </template>
           </v-text-field>
-          <div class="g-reCAPTCHAR" data-sitekey="6LdXEqQUAAAAAL3oAttg0UnznP__DAzEHRmLxhHv"></div>
-          <!-- <template>
-            <vue-recaptcha sitekey="6LdXEqQUAAAAAL3oAttg0UnznP__DAzEHRmLxhHv">
-              <v-btn>Click me</v-btn>
-            </vue-recaptcha>
-          </template> -->
           <v-layout column class="mb-4" justify-center align-center>
             <span class="danger-alert">{{error}}</span>
             <v-layout class="mt-2" justify-center align-center row>
-              <v-btn elevation-24 large class="grey darken-1 mb-4 font-weight-bold" @click="register">Register</v-btn>
+              <v-btn elevation-24 large class="grey darken-1 mb-4 font-weight-bold" @click="register">Submit</v-btn>
               <v-icon @click="undoSettings()">refresh</v-icon>
             </v-layout>
           </v-layout>
@@ -119,22 +128,24 @@ import VueRecaptcha from 'vue-recaptcha'
 export default {
   data() {
     return {
-      username: "",
-      password: "",
-      confirmPassword: "",
+      lastname: "",
+      firstname: "",
       email: "",
       confirmEmail: "",
+      password: "",
+      confirmPassword: "",
       error: null
     };
   },
   methods: {
     async undoSettings() {
       this.error = null
-      this.username = null
-      this.password = null
-      this.confirmPassword = null
+      this.lastname = null
+      this.firstname = null
       this.email = null
       this.confirmEmail = null
+      this.password = null
+      this.confirmPassword = null
     },
     async register() {
       if (this.password !== this.confirmPassword) { // FINISH THIS
@@ -143,7 +154,6 @@ export default {
           position: 'top-end',
           type: 'error',
           title: 'Wrong match password',
-          text: this.username,
           showConfirmButton: false,
           timer: 2000
         })
@@ -155,7 +165,7 @@ export default {
           position: 'top-end',
           type: 'error',
           title: 'Wrong email match',
-          text: this.username,
+          text: this.email,
           showConfirmButton: false,
           timer: 2000
         })
@@ -163,7 +173,8 @@ export default {
       }
       try {
         const newUser = {
-          username: this.username,
+          lastname: this.lastname,
+          firstname: this.firstname,
           email: this.email,
           password: this.password
         }
@@ -180,7 +191,7 @@ export default {
           name: "home"
         });
       } catch (error) {
-        this.error = error.response.data.error;
+        this.error = error.response.error;
       }
     }
   },

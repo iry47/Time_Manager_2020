@@ -15,4 +15,10 @@ config/*.secret.exs
 dist/*
 !*/.gitkeep
 node_modules
+package-lock.json
 
+# Deployment
+
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
