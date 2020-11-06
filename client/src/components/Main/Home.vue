@@ -1,5 +1,5 @@
 <template>
-<v-layout row align-center justify-center>
+<v-layout v-if="!isUserLoggedIn" row align-center justify-center>
   <!-- <v-flex v-if="!isUserLoggedIn" xs12 offset-xs2 sm8 md4> -->
     <!-- <v-layout justify-center> -->
       <v-flex xs10 sm7 md5>
