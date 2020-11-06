@@ -13,7 +13,7 @@ defmodule TimeManagerWeb.SessionController do
           user_claim = %{
             "id" => user.id,
             "email" => user.email,
-            "active_hash" => user.active_hash,
+            "hash" => user.hash,
             "admin" => user.admin,
             "manager" => user.manager,
             "gridster" => user.gridster,
